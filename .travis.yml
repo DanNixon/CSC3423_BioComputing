@@ -3,8 +3,10 @@ language: java
 sudo: false
 
 jdk:
+  - openjdk6
   - openjdk7
   - oraclejdk7
+  - oraclejdk8
 
 script:
   - cd coursework1/csc3423-cw1
