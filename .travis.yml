@@ -10,10 +10,11 @@ jdk:
 
 script:
   - cd practicals/code
-  - mvn install -DskipTests=true -q
+  - mvn install -DskipTests=true
+  - cd ../..
 
   - cd coursework1/csc3423-cw1
-  - mvn install -DskipTests=true -q
+  - mvn install -DskipTests=true
   - mvn test
 
 notifications:
