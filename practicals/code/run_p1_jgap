@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Usgae: ./run_p1_jgap [num genes] [num iterations]
+java -cp target/*-with-dependencies.jar com.dan_nixon.csc3423.practicals.p1.OneMaxFitnessFunction $@

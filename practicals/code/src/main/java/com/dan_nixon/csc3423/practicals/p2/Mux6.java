@@ -1,3 +1,5 @@
+package com.dan_nixon.csc3423.practicals.p2;
+
 import java.util.*;
 
 import static org.epochx.stats.StatField.*;

@@ -1,0 +1,10 @@
+<dependency>
+  <groupId>local</groupId>
+  <artifactId>org.epochx_1.4.1</artifactId>
+  <version>1.0</version>
+</dependency>
+<dependency>
+  <groupId>local</groupId>
+  <artifactId>ecj.22</artifactId>
+  <version>1.0</version>
+</dependency>

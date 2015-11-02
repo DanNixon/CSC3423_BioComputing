@@ -1,12 +1,16 @@
+package com.dan_nixon.csc3423.practicals.p1;
+
 import org.jgap.*;
 import org.jgap.impl.*;
 
-public class OneMaxFitnessFunction extends FitnessFunction {
-
-	public OneMaxFitnessFunction() {
+public class OneMaxFitnessFunction extends FitnessFunction
+{
+	public OneMaxFitnessFunction()
+  {
 	}
 
-	public double evaluate( IChromosome ind ) {
+	public double evaluate( IChromosome ind )
+  {
 		int numBits = ind.size();
 		int countOnes = 0;
 
@@ -17,7 +21,8 @@ public class OneMaxFitnessFunction extends FitnessFunction {
 		return (double)countOnes/(double)numBits;
 	}
 
-	public static String getPhenotype(IChromosome ind) {
+	public static String getPhenotype(IChromosome ind)
+  {
 		int numBits = ind.size();
 		String phenotype="";
 
@@ -29,7 +34,8 @@ public class OneMaxFitnessFunction extends FitnessFunction {
 	}
 
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception
+  {
 		// Start with a DefaultConfiguration, which comes setup with the
 		// most common settings.
 		// -------------------------------------------------------------

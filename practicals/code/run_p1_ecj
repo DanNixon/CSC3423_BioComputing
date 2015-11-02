@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Usgae: ./run_p1_ecj [param file]
+java -cp target/*-with-dependencies.jar ec.Evolve -file $@

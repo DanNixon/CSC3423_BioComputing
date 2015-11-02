@@ -9,6 +9,9 @@ jdk:
   - oraclejdk8
 
 script:
+  - cd practicals/code
+  - mvn install -DskipTests=true -q
+
   - cd coursework1/csc3423-cw1
   - mvn install -DskipTests=true -q
   - mvn test
