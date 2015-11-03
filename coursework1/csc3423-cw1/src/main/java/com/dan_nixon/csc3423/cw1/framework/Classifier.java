@@ -3,7 +3,7 @@
  *
  */
 
-package Biocomputing;
+package com.dan_nixon.csc3423.cw1.framework;
 
 import java.lang.Math;
 

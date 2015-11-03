@@ -1,4 +1,4 @@
-package Biocomputing;
+package com.dan_nixon.csc3423.cw1.framework;
 
 // This java version of the Mersenne Twister ``MT19937'' is translated
 // from the C version by Takuji Nishimura and Makoto Matsumoto

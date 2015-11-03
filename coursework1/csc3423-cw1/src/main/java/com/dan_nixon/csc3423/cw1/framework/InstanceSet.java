@@ -6,9 +6,8 @@
 /**
  *
  */
-package Biocomputing;
+package com.dan_nixon.csc3423.cw1.framework;
 
-import Biocomputing.*;
 import java.util.*;
 
 public class InstanceSet {

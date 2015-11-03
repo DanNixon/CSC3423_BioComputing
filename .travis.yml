@@ -16,6 +16,7 @@ script:
   - cd coursework1/csc3423-cw1
   - mvn install -DskipTests=true
   - mvn test
+  - ./run ../TrainFold0 ../TestFold0
 
 notifications:
   email:

@@ -2,7 +2,7 @@
  * Classifier for the RandomSphere toy representation
  */
 
-package Biocomputing;
+package com.dan_nixon.csc3423.cw1.framework;
 
 public class ClassifierRandomSphere extends Classifier implements Cloneable {
 	double []center;
