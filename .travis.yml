@@ -10,11 +10,11 @@ jdk:
 
 script:
   - cd practicals/code
-  - mvn install -DskipTests=true
+  - mvn install -DskipTests=true -q
   - cd ../..
 
   - cd coursework1/csc3423-cw1
-  - mvn install -DskipTests=true
+  - mvn install -DskipTests=true -q
   - mvn test
   - ./run ../TrainFold0 ../TestFold0
 
