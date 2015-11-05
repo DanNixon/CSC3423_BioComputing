@@ -2,7 +2,7 @@
  * Rand.java
  */
 
-package com.dan_nixon.csc3423.cw1.framework;
+package com.dan_nixon.csc3423.framework;
 
 import java.util.*;
 

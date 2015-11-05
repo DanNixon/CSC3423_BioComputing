@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -cp target/*.jar com.dan_nixon.csc3423.Control $@

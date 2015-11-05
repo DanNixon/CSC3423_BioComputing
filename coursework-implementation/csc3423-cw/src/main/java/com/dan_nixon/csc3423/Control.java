@@ -2,9 +2,9 @@
  * Control.java
  */
 
-package com.dan_nixon.csc3423.cw1;
+package com.dan_nixon.csc3423;
 
-import com.dan_nixon.csc3423.cw1.framework.*;
+import com.dan_nixon.csc3423.framework.*;
 
 public class Control {
 

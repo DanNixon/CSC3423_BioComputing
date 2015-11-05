@@ -13,7 +13,7 @@ script:
   - mvn install -DskipTests=true -q
   - cd ../..
 
-  - cd coursework1/csc3423-cw1
+  - cd coursework1-implementation/csc3423-cw
   - mvn install -DskipTests=true -q
   - mvn test
   - ./run ../TrainFold0 ../TestFold0
