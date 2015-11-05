@@ -13,10 +13,10 @@ script:
   - mvn install -DskipTests=true -q
   - cd ../..
 
-  - cd coursework1-implementation/csc3423-cw
+  - cd coursework-implementation
   - mvn install -DskipTests=true -q
   - mvn test
-  - ./run ../TrainFold0 ../TestFold0
+  - ./run src/test/resources/TrainFold0 src/test/resources/TestFold0
 
 notifications:
   email:
