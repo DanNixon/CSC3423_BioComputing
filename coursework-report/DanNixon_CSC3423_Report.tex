@@ -1,0 +1,52 @@
+\documentclass[a4paper]{article}
+
+% Set for specific document
+\def\DOCTITLE{CSC3423 Biocomputing Coursework Report}
+\def\DOCAUTHOR{Dan Nixon (120263697)}
+\def\DOCDATE{05/11/2015}
+
+% Set document attributes
+\title{\DOCTITLE}
+\author{\DOCAUTHOR}
+\date{\DOCDATE}
+
+\usepackage{fullpage}
+\usepackage{scrextend}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% Handle graphics correctly
+\ifx\pdftexversion\undefined
+\usepackage{graphicx}
+% \usepackage[dvips]{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
+
+% Setup headers and footers
+\pagestyle{fancy}
+\lhead{}
+\chead{\DOCTITLE}
+\rhead{}
+\rfoot{\DOCDATE}
+\cfoot{\thepage}
+\lfoot{\DOCAUTHOR}
+
+% New page for each section
+\newcommand{\sectionbreak}{\clearpage}
+
+% Set header and footer sizes
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{15.2pt}
+
+\begin{document}
+
+Put work here.
+
+% \begin{thebibliography}{9}
+% \end{thebibliography}
+
+\end{document}
