@@ -14,6 +14,11 @@
 \usepackage{scrextend}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[style=numeric-comp,natbib=true]{biblatex}
+
+\addbibresource{DanNixon_CSC3423_Proposal.bib}
 
 % Handle graphics correctly
 \ifx\pdftexversion\undefined
@@ -42,11 +47,100 @@
 \setlength{\headheight}{15.2pt}
 \setlength{\headsep}{15.2pt}
 
+% Number equations per block (rather than per line)
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
 \begin{document}
 
-Put work here.
+\maketitle
 
-% \begin{thebibliography}{9}
-% \end{thebibliography}
+\begin{abstract}
+  This document describes the choices I have made for the two bio inspired
+  algorithms, their parameters and knowledge representation that will be used to
+  solve the given classification problem.
+\end{abstract}
+
+\section{Genetic algorithm}
+
+The first algorithm I have chosen is a genetic algorithm using a hyperrectangle
+classifier.
+
+The advantages of the genetic algorithm is its ability to work with a wide range
+of optimisation and machine learning problems this is inherently because the
+algorithm itself does not have knowledge of the problem it is trying to solve,
+instead it operates by making small random changes to a population of candidate
+solutions.
+
+This property also allows the algorithm to remain unchanged as the
+classification problem it is solving increases to higher dimensions.
+
+\subsection{Knowledge Representation}
+
+The knowledge representation I will use is a hyperrectangle. For a
+classification problem in $n$ dimensions a classifier will be stored as an
+origin position in $n$ dimensions and a length in each dimension as shown for a
+three dimensional classifier in figure \ref{fig:alg1_kr}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{out/alg1_kr.eps}
+  \caption{3D hyperrectangle classifier}
+  \label{fig:alg1_kr}
+\end{figure}
+
+The advantage of the hyperrectangle classifier is that it is a very small data
+set, in a classification problem its is a set of upper and lower bounds for each
+dimension of the problem.
+
+The simplicity of this knowledge representation also significantly simplifies
+and increases the speed of computation in other stages of the genetic algorithm,
+namely selection and crossover.
+
+During selection the fitness function for each chromosome must be calculated, as
+with a hyperrectangle classifier this involves simply determining if a given
+instance is within all bounds of the classifier this operation is very
+computationally inexpensive.
+
+During crossover two new children can derived using the blend alpha
+(BLX-$\mathrm{\alpha}$) function described by Takahashi and Kita \cite{blxa},
+which is again an inexpensive operation due to the simplicity of the knowledge
+representation.
+
+\subsection{Implementation}
+
+When a new classifier is created it will take a random size within the bounding
+box of the instances in the current training set, the size will be determined
+independently for each axis and will be selected using a linear distribution
+from values between a minimum percentage of the axis length (which is a
+parameter of the system) and the axis length.
+
+Equation \ref{eq:blxa} shows the implementation that will be used for the
+BLX-$\mathrm{\alpha}$ crossover function to determine a parameter of classifier
+$x^{c}$ (a child of classifiers $x^{a}$ and $x^{b}$) \cite{blxa}.
+
+\begin{align*}
+  x^{c}_{i} &\in [X^{a}_{i}, X^{b}_{i}] \\
+  X^{a}_{i} &= min(x^{a}_{i}, x^{a}_{i}) - \alpha d_{i} \\
+  X^{b}_{i} &= max(x^{b}_{i}, x^{b}_{i}) + \alpha d_{i} \\
+  d_{i} &= |x^{1}_{i} - x^{2}_{i}|
+  \numberthis
+  \label{eq:blxa}
+\end{align*}
+
+TODO
+
+\section{Neural network}
+
+TODO
+
+\subsection{Knowledge Representation}
+
+TODO
+
+\subsection{Implementation}
+
+TODO
+
+\printbibliography
 
 \end{document}

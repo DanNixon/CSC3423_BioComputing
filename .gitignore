@@ -14,3 +14,7 @@ buildNumber.properties
 *.war
 *.ear
 hs_err_pid*
+
+# TeX stuff
+*/out/*
+*~
