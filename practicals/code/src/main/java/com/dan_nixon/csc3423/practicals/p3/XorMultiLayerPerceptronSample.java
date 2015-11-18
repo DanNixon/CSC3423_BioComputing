@@ -20,8 +20,7 @@ public class XorMultiLayerPerceptronSample
 		trainingSet.addRow(new DataSetRow(new double[]{1, 1}, new double[]{0}));
 
 		// create multi layer perceptron
-		MultiLayerPerceptron myMlPerceptron = new
-		MultiLayerPerceptron(TransferFunctionType.TANH, 2, 3, 1);
+		MultiLayerPerceptron myMlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH, 2, 3, 1);
 
 		// learn the training set
 		myMlPerceptron.learn(trainingSet);
