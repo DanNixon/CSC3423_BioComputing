@@ -55,7 +55,7 @@
 \maketitle
 
 \begin{abstract}
-  This document describes the choices I have made for the two bio inspired
+  This document describes the choices I have made for the two nature inspired
   algorithms, their parameters and knowledge representation that will be used to
   solve the given classification problem.
 \end{abstract}
@@ -127,9 +127,43 @@ $x^{c}$ (a child of classifiers $x^{a}$ and $x^{b}$) \cite{blxa}.
   \label{eq:blxa}
 \end{align*}
 
-TODO
+Due to the speed of operations over a single candidate classifier, a relatively
+large population size will be selected, initially around 100 candidates however
+this parameter will be tuned to optimise classification correctness and
+evolution speed.
+
+The best candidates will be selected through tournament selection where the
+tournament size will initially be set to two candidates, however I will attempt
+to set this parameter as a function of the iteration count or overall change in
+fitness of the population in order to increase the speed of evolution.
+
+The planned technical implementation of the genetic algorithm is described in
+figure \ref{fig:alg1_uml}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.4\textwidth]{out/alg1_uml.1}
+  \caption{Genetic algorithm implementation UML diagram}
+  \label{fig:alg1_uml}
+\end{figure}
+
+The genetic algorithm will be implemented using the JGAP \cite{ecj} Java
+library.
 
 \section{Neural network}
+
+The first algorithm I have chosen is a multi layer neural network with all
+perceptrons using the sigmoid activation function.
+
+The continuous logarithmic sigmoid function (described by equation
+\ref{eq:sigmoid}) will be used as this is one of the simplest functions to
+calculate the derivative of when recalculating the weights of inputs to each
+perceptron during back propagation.
+
+\begin{equation}
+  \sigma(t, \beta) = \frac{1}{1 + e^{- \beta t}}
+  \label{eq:sigmoid}
+\end{equation}
 
 TODO
 
@@ -140,6 +174,18 @@ TODO
 \subsection{Implementation}
 
 TODO
+
+The planned technical implementation of the neural network is described in
+figure \ref{fig:alg2_uml}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.4\textwidth]{out/alg2_uml.1}
+  \caption{Neural network implementation UML diagram}
+  \label{fig:alg2_uml}
+\end{figure}
+
+TODO: technology/libraries
 
 \printbibliography
 
