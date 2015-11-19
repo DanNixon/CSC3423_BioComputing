@@ -17,6 +17,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage[style=numeric-comp,natbib=true]{biblatex}
+\usepackage{minted}
 
 \addbibresource{DanNixon_CSC3423_Proposal.bib}
 
@@ -165,24 +166,35 @@ The first algorithm I have chosen is a multi layer neural network with all
 perceptrons using the sigmoid activation function.
 
 The continuous logarithmic sigmoid function (described by equation
-\ref{eq:sigmoid}) will be used as this is one of the simplest functions to
-calculate the derivative of when recalculating the weights of inputs to each
-perceptron during back propagation.
+\ref{eq:sigmoid}) will be used as a non linear activation function is required
+for classification of the given dataset, which contains shapes primarily made of
+circles and curves.
+
+This is also one of the simplest functions to calculate the derivative of when
+recalculating the weights of inputs to each perceptron during back propagation.
 
 \begin{equation}
   \sigma(t, \beta) = \frac{1}{1 + e^{- \beta t}}
   \label{eq:sigmoid}
 \end{equation}
 
-TODO
+The structure of the neural network will see $n$ perceptrons in the first
+(input) layer for an $n$ dimensional classification problem, this is a given by
+the fact that the size of the input layer must match the dimensionality of the
+problem.
 
-\subsection{Knowledge Representation}
+Similarly, for a classification problem, the output layer will consist of a
+single perceptron.
 
-TODO
+The neural network will initially only contain a single inner layer as the
+majority of classifications problems can usually be solved using a single inner
+layer \cite{nninjava}.
+
+The number of perceptrons in the inner layer will initially be 5 but will be
+tuned to obtain best performance from the neural network in terms of learning
+speed and classification accuracy.
 
 \subsection{Implementation}
-
-TODO
 
 The planned technical implementation of the neural network is described in
 figure \ref{fig:alg2_uml}.
@@ -196,6 +208,48 @@ figure \ref{fig:alg2_uml}.
 
 The neural network will be implemented using the Neuroph \cite{neuroph} Java
 library, specifically the \textit{MultiLayerPerceptron} class.
+
+When a new call is made to \textit{generateSubsolution()} a new \textit{DataSet}
+will be created of all the instances remaining in the training set, this will
+form the training set for the neural network.
+
+Listing \ref{list:ClassifierNN} describes the way in which the neural network
+will be crated and trained in the \texttt{ClassifierNN} class using the JGAP
+API.
+
+\begin{listing}[H]
+  \begin{minted}[frame=lines]{text}
+
+create two dimensional DataSet
+for each Instance in training set
+  create new DataSetRow and add to DataSet
+create new MultiLayerPerceptron
+train MultiLayerPerceptron with training set
+
+  \end{minted}
+  \caption{\texttt{ClassifierNN} constructor pseudo code}
+  \label{list:ClassifierNN}
+\end{listing}
+
+Listing \ref{list:ClassifierNN_classifyInstance} describes, how after being
+trained, the neural network will be used to classify a given instance.
+
+\begin{listing}[H]
+  \begin{minted}[frame=lines]{text}
+
+create new DataSetRow from Instance data
+set DataSetRow as input to neural network
+calculate neural network output
+return value of output perceptron
+
+  \end{minted}
+  \caption{\texttt{ClassifierNN.classifyInstance()} pseudo code}
+  \label{list:ClassifierNN_classifyInstance}
+\end{listing}
+
+The knowledge representation of the neural network is composed of the weights
+assigned to each perceptron input, the JGAP library also allows this information
+to be saved to a file if required.
 
 \printbibliography
 

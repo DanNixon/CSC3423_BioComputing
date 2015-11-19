@@ -17,7 +17,9 @@ beginfig(1);
       "classifyInstance(Instance): int",
       "printClassifier(): void"
   )
-  ();
+  (
+      "-m_mlPerceptron: MultiLayerPerceptron"
+  );
 
   topToBottom(25)(
       Classifier,
