@@ -3,7 +3,7 @@
 % Set for specific document
 \def\DOCTITLE{CSC3423 Biocomputing Coursework Proposal}
 \def\DOCAUTHOR{Dan Nixon (120263697)}
-\def\DOCDATE{05/11/2015}
+\def\DOCDATE{18/11/2015}
 
 % Set document attributes
 \title{\DOCTITLE}
@@ -215,12 +215,12 @@ form the training set for the neural network.
 
 Listing \ref{list:ClassifierNN} describes the way in which the neural network
 will be crated and trained in the \texttt{ClassifierNN} class using the JGAP
-API.
+API for an $n$ dimensional classification problem.
 
 \begin{listing}[H]
   \begin{minted}[frame=lines]{text}
 
-create two dimensional DataSet
+create n dimensional DataSet
 for each Instance in training set
   create new DataSetRow and add to DataSet
 create new MultiLayerPerceptron
