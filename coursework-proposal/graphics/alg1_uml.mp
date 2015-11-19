@@ -18,16 +18,38 @@ beginfig(1);
       "printClassifier(): void"
   )
   (
-      "-m_population: Genotype"
   );
 
-  topToBottom(10)(
+  EClass.FitnessFunction(iClassNameOnly)("FitnessFunction")()();
+
+  Class.HyperrectangleClassificationFitnessFunction("HyperrectangleClassificationFitnessFunction")
+  (
+    "-evaluate(IChromosome): double"
+  )
+  (
+  );
+
+  topToBottom(25)(
+      Classifier,
+      ClassifierHyperrectangle);
+  Group.gl(
       Classifier,
       ClassifierHyperrectangle);
 
-  drawObjects(
-      Classifier,
-      ClassifierHyperrectangle);
+  topToBottom(25)(
+      FitnessFunction,
+      HyperrectangleClassificationFitnessFunction);
+  Group.gr(
+      FitnessFunction,
+      HyperrectangleClassificationFitnessFunction);
+
+  leftToRight(25)(gl, gr);
+
+  drawObjects(gl, gr);
+
+  link(inheritance)(ClassifierHyperrectangle.n -- Classifier.s);
+  link(inheritance)(HyperrectangleClassificationFitnessFunction.n -- FitnessFunction.s);
+  link(aggregation)(ClassifierHyperrectangle.e -- HyperrectangleClassificationFitnessFunction.w);
 
 endfig;
 

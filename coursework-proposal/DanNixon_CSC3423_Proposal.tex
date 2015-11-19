@@ -83,7 +83,7 @@ three dimensional classifier in figure \ref{fig:alg1_kr}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.5\textwidth]{out/alg1_kr.eps}
+  \includegraphics[width=0.4\textwidth]{out/alg1_kr.eps}
   \caption{3D hyperrectangle classifier}
   \label{fig:alg1_kr}
 \end{figure}
@@ -137,18 +137,27 @@ tournament size will initially be set to two candidates, however I will attempt
 to set this parameter as a function of the iteration count or overall change in
 fitness of the population in order to increase the speed of evolution.
 
-The planned technical implementation of the genetic algorithm is described in
-figure \ref{fig:alg1_uml}.
+A brief overview of the planned technical implementation of the genetic
+algorithm is described in figure \ref{fig:alg1_uml}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.4\textwidth]{out/alg1_uml.1}
+  \includegraphics[width=0.8\textwidth]{out/alg1_uml.1}
   \caption{Genetic algorithm implementation UML diagram}
   \label{fig:alg1_uml}
 \end{figure}
 
-The genetic algorithm will be implemented using the JGAP \cite{ecj} Java
+The genetic algorithm will be implemented using the JGAP \cite{jgap} Java
 library.
+
+A \textit{Chromesome} object will possess $2n$ \textit{DoubleGene} objects where
+$n$ is the dimensionality of the classification problem, the first $n$ genes
+will store the origin point in $n$ dimension space and the remaining $n$ genes
+will store the bounds of the hyperrectngle in each of its dimensions.
+
+The value of each gene will be limited to be within the hyperrectangle that
+bounds the points remaining in the training set on a new call to
+\texttt{generateSubsolution()}.
 
 \section{Neural network}
 
@@ -185,7 +194,8 @@ figure \ref{fig:alg2_uml}.
   \label{fig:alg2_uml}
 \end{figure}
 
-TODO: technology/libraries
+The neural network will be implemented using the Neuroph \cite{neuroph} Java
+library, specifically the \textit{MultiLayerPerceptron} class.
 
 \printbibliography
 

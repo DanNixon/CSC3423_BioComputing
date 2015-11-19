@@ -19,13 +19,16 @@ beginfig(1);
   )
   ();
 
-  topToBottom(10)(
+  topToBottom(25)(
+      Classifier,
+      ClassifierNN);
+  Group.gl(
       Classifier,
       ClassifierNN);
 
-  drawObjects(
-      Classifier,
-      ClassifierNN);
+  drawObjects(gl);
+
+  link(inheritance)(ClassifierNN.n -- Classifier.s);
 
 endfig;
 
