@@ -65,8 +65,9 @@ public class Control {
     System.out.println("Total time: "+((t2-t1)/1000.0));
   }
 
-  public static Classifier generateSubsolution(InstanceSet trainingSet) {
-    // Replace this with your own code using nature-inspired algorithms
-    return new ClassifierRandomSphere(trainingSet);
+  public static Classifier generateSubsolution(InstanceSet trainingSet)
+  {
+    //return new ClassifierRandomSphere(trainingSet);
+    return new ClassifierNN(trainingSet);
   }
 }
