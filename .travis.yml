@@ -14,7 +14,7 @@ script:
   - cd ../..
 
   - cd coursework-implementation
-  - mvn install -DskipTests=true -q
+  - mvn install -DskipTests=true
   - mvn test
   - ./run src/test/resources/TrainFold0 src/test/resources/TestFold0
 
