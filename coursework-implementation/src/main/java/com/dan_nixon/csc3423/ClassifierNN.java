@@ -4,17 +4,14 @@ import com.dan_nixon.csc3423.framework.Attributes;
 import com.dan_nixon.csc3423.framework.Classifier;
 import com.dan_nixon.csc3423.framework.Instance;
 import com.dan_nixon.csc3423.framework.InstanceSet;
-import org.encog.engine.network.activation.ActivationGaussian;
-import org.encog.engine.network.activation.ActivationLinear;
 import org.encog.engine.network.activation.ActivationSigmoid;
-import org.encog.engine.network.activation.ActivationTANH;
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLData;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
-import org.encog.neural.networks.training.propagation.resilient.ResilientPropagation;
+import org.encog.neural.networks.training.propagation.quick.QuickPropagation;
 
 class ClassifierNN extends Classifier
 {
@@ -42,15 +39,15 @@ class ClassifierNN extends Classifier
     // Configure network
     m_network = new BasicNetwork();
     m_network.addLayer(new BasicLayer(null, true, dimensions));
-    m_network.addLayer(new BasicLayer(new ActivationSigmoid(), true, 35)); //35
-    m_network.addLayer(new BasicLayer(new ActivationSigmoid(), true, 1));
+    m_network.addLayer(new BasicLayer(new ActivationSigmoid(), true, 35));
+    m_network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
     m_network.getStructure().finalizeStructure();
     m_network.reset();
 
     // Train network
-    final ResilientPropagation train = new ResilientPropagation(m_network, nnTrainingSet);
+    final QuickPropagation train = new QuickPropagation(m_network, nnTrainingSet);
     do {
-      train.iteration();
+      train.iteration(500);
       System.out.println(train.getError());
     } while (train.getError() > 0.001);
     train.finishTraining();

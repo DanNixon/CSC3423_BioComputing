@@ -5,6 +5,7 @@
 package com.dan_nixon.csc3423;
 
 import com.dan_nixon.csc3423.framework.*;
+import org.encog.Encog;
 
 public class Control {
 
@@ -63,6 +64,8 @@ public class Control {
     // End clock and printing the time it took the algorithm to run
     long t2=System.currentTimeMillis();
     System.out.println("Total time: "+((t2-t1)/1000.0));
+    
+    Encog.getInstance().shutdown();
   }
 
   public static Classifier generateSubsolution(InstanceSet trainingSet)
