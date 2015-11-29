@@ -71,7 +71,15 @@ class ClassifierNN extends Classifier
   @Override
   public void printClassifier()
   {
-    System.out.println(m_network);
+    System.out.println(this);
+  }
+  
+  @Override
+  public String toString()
+  {
+    StringBuilder sb = new StringBuilder();
+    sb.append(m_network);
+    return sb.toString();
   }
   
   BasicNetwork m_network;

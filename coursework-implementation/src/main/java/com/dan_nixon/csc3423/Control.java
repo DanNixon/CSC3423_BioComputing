@@ -6,6 +6,7 @@ package com.dan_nixon.csc3423;
 
 import com.dan_nixon.csc3423.framework.*;
 import org.encog.Encog;
+import org.jgap.InvalidConfigurationException;
 
 public class Control {
 
@@ -71,6 +72,15 @@ public class Control {
   public static Classifier generateSubsolution(InstanceSet trainingSet)
   {
     //return new ClassifierRandomSphere(trainingSet);
-    return new ClassifierNN(trainingSet);
+    //return new ClassifierNN(trainingSet);
+    
+    try
+    {
+      return new ClassifierHyperrectangle(trainingSet);
+    }
+    catch (InvalidConfigurationException ice)
+    {
+      return null;
+    }
   }
 }
