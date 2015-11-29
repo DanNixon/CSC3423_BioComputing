@@ -1,3 +1,9 @@
 #!/bin/sh
 
-java -cp target/*.jar com.dan_nixon.csc3423.Control $@
+JAVA_FLAGS="-cp target/*-with-dependencies.jar"
+CLASS=com.dan_nixon.csc3423.Control
+
+TRAIN=TrainFold0
+TEST=TestFold0
+
+java $JAVA_FLAGS $CLASS $TRAIN $TEST
