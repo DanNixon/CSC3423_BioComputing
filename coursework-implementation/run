@@ -1,6 +1,6 @@
 #!/bin/sh
 
-JAVA_FLAGS="-cp target/*-with-dependencies.jar"
+JAVA_FLAGS="-cp target/*-with-dependencies.jar -Djava.util.Arrays.useLegacyMergeSort=true"
 CLASS=com.dan_nixon.csc3423.Control
 
 TRAIN=TrainFold0
