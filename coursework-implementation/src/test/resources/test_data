@@ -1,0 +1,20 @@
+%
+% TAO problem file
+% Mode         : grid
+% File name    : graphic.tao.radial.arff
+% Generated at : Fri Nov 24 18:18:51 CET 2000
+%
+
+@RELATION TAO_grid
+
+@ATTRIBUTE x     REAL
+@ATTRIBUTE y     REAL
+@ATTRIBUTE class {black,white}
+
+@DATA
+0.6,1.1,white
+0.6,1.1,black
+0.6,0.75,white
+0.6,1.25,white
+0.45,1.1,white
+0.75,1.1,white

@@ -35,6 +35,10 @@ public class Control {
     while(trainingSet.numInstances()>0) {
       // Calling a (nature-inspired) optimisation method to generate one classifiers
       Classifier subSolution = generateSubsolution(trainingSet);
+      
+      // TODO
+      subSolution.printClassifier();
+      
       // Printing the stats on training data of that classifier
       System.out.print("Classifier of iteration "+countIterations+". ");
       subSolution.computeStats(trainingSet);
