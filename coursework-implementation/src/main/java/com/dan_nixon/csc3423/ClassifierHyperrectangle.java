@@ -21,44 +21,92 @@ class ClassifierHyperrectangle extends Classifier
 {
   public static final int MAX_ITERATIONS = 100;
   public static final double EXIT_THRESHOLD = 0.95;
-  
-  public static Gene[] createSampleGenes(Configuration conf, int dimensions) throws InvalidConfigurationException
+
+  public static Gene[] createSampleGenes(Configuration conf, int dimensions, double[][] bounds) throws InvalidConfigurationException
   {
     Gene[] sampleGenes = new Gene[dimensions + 1];
-    
+
     // Vertex position genes
     for (int i = 0; i < dimensions; i++)
     {
       CompositeGene g = new CompositeGene(conf);
-      g.addGene(new DoubleGene(conf, -6.0, 6.0));
-      g.addGene(new DoubleGene(conf, -6.0, 6.0));
+      g.addGene(new DoubleGene(conf, bounds[0][i], bounds[1][i]));
+      g.addGene(new DoubleGene(conf, bounds[0][i], bounds[1][i]));
+
       // TODO: add validator
+
       sampleGenes[i] = g;
     }
-    
+
     // Classification gene
     sampleGenes[sampleGenes.length - 1] = new IntegerGene(conf, 0, 1);
-    
+
     return sampleGenes;
   }
-  
-  public ClassifierHyperrectangle(InstanceSet trainingSet) throws InvalidConfigurationException
-  { 
+
+  public static double[][] getInstanceSetBounds(InstanceSet is)
+  {
     int dimensions = Attributes.getNumAttributes();
-    
+    double bounds[][] = new double[2][dimensions];
+
+    for (int i = 0; i < dimensions; i++)
+    {
+      bounds[0][i] = Integer.MAX_VALUE;
+      bounds[1][i] = Integer.MIN_VALUE;
+    }
+
+    for (Instance inst : is.getInstances())
+    {
+      for (int i = 0; i < dimensions; i++)
+      {
+        double v = inst.getRealAttribute(i);
+
+        if (v < bounds[0][i])
+          bounds[0][i] = v;
+
+        if (v > bounds[1][i])
+          bounds[1][i] = v;
+      }
+    }
+
+    return bounds;
+  }
+
+  public static double[][] padBounds(double[][] bounds, double padding)
+  {
+    int dimensions = bounds[0].length;
+
+    for (int i = 0; i < dimensions; i++)
+    {
+      bounds[0][i] = bounds[0][i] - padding;
+      bounds[1][i] = bounds[1][i] + padding;
+    }
+
+    return bounds;
+  }
+
+  public ClassifierHyperrectangle(InstanceSet trainingSet) throws InvalidConfigurationException
+  {
+    int dimensions = Attributes.getNumAttributes();
+
     // Configuration
     DefaultConfiguration.reset();
     Configuration conf = new DefaultConfiguration();
     conf.setPopulationSize(100);
-    
+
     // Setup fitness function
     FitnessFunction fit = new HyperrectangleClassificationFitnessFunction(trainingSet);
     conf.setFitnessFunction(fit);
-   
+
+    // Determine the bounds of the training set per axis and add a little
+    // padding to them
+    double[][] bounds = getInstanceSetBounds(trainingSet);
+    bounds = padBounds(bounds, 1.0);
+
     // Setup chromosome
-    Chromosome sample = new Chromosome(conf, createSampleGenes(conf, dimensions));
+    Chromosome sample = new Chromosome(conf, createSampleGenes(conf, dimensions, bounds));
     conf.setSampleChromosome(sample);
-    
+
     // Generate initial population
     Genotype population = Genotype.randomInitialGenotype(conf);
 
@@ -68,16 +116,16 @@ class ClassifierHyperrectangle extends Classifier
     {
       population.evolve();
       bestSolution = population.getFittestChromosome();
-      
+
       double bestFitness = bestSolution.getFitnessValue();
       if (bestFitness > EXIT_THRESHOLD)
         break;
     }
-    
+
     // Record best
     updateFromChromosome(bestSolution);
   }
-  
+
   public ClassifierHyperrectangle(IChromosome c)
   {
     updateFromChromosome(c);
@@ -90,14 +138,14 @@ class ClassifierHyperrectangle extends Classifier
     for (int i = 0; i < dimensions; i++)
     {
       double instPosI = inst.getRealAttribute(i);
-      
+
       double rectUpperI = m_verticies[i][1];
       double rectLowerI = m_verticies[i][0];
-      
+
       if (instPosI > rectUpperI || instPosI < rectLowerI)
         return -1;
     }
-    
+
     return m_classValue;
   }
 
@@ -106,39 +154,39 @@ class ClassifierHyperrectangle extends Classifier
   {
     System.out.println(this);
   }
-  
+
   public double[][] getVerticies()
   {
     return m_verticies;
   }
-  
+
   public double[] getVertex(int i)
   {
     return m_verticies[i];
   }
-  
+
   public int getClassValue()
   {
     return m_classValue;
   }
-  
+
   private void updateFromChromosome(IChromosome c)
   {
     Gene[] genes = c.getGenes();
     int dimensions = genes.length - 1;
-    
+
     m_verticies = new double[2][dimensions];
-    
+
     for (int i = 0; i < dimensions; i++)
     {
       CompositeGene comp = (CompositeGene) genes[i];
       m_verticies[i][0] = (Double) comp.getGenes().get(0).getAllele();
       m_verticies[i][1] = (Double) comp.getGenes().get(1).getAllele();
     }
-    
+
     m_classValue = (Integer) genes[dimensions].getAllele();
   }
-  
+
   @Override
   public String toString()
   {
@@ -150,7 +198,7 @@ class ClassifierHyperrectangle extends Classifier
     sb.append("]");
     return sb.toString();
   }
-  
+
   private int m_classValue;
   private double[][] m_verticies;
 }
