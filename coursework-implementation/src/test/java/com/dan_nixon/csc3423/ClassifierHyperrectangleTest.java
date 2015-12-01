@@ -27,7 +27,7 @@ public class ClassifierHyperrectangleTest
   @Test
   public void test_CreateGenes() throws InvalidConfigurationException
   {
-    double bounds[][] = new double[][]{{-6.0, -6.0}, {6.0, 6.0}};
+    double bounds[][] = new double[][]{{-6.0, 6.0}, {-6.0, 6.0}};
 
     DefaultConfiguration.reset();
     Configuration c = new DefaultConfiguration();
@@ -62,21 +62,19 @@ public class ClassifierHyperrectangleTest
   @Test
   public void test_PadBounds()
   {
-    double[][] bounds = new double[][]{{-0.5, 0.0, 1.0}, {-1.0, 0.0, 0.5}};
+    double[][] bounds = new double[][]{{-0.5, 1.0}, {-1.0, 0.0}};
     bounds = ClassifierHyperrectangle.padBounds(bounds, 0.5);
 
     assertEquals(-1.0, bounds[0][0], TH);
-    assertEquals(-0.5, bounds[0][1], TH);
-    assertEquals(0.5, bounds[0][2], TH);
-    assertEquals(-0.5, bounds[1][0], TH);
+    assertEquals(1.5, bounds[0][1], TH);
+    assertEquals(-1.5, bounds[1][0], TH);
     assertEquals(0.5, bounds[1][1], TH);
-    assertEquals(1.0, bounds[1][2], TH);
   }
 
   @Test
   public void test_CreateFromGenes() throws InvalidConfigurationException
   {
-    double bounds[][] = new double[][]{{-6.0, -6.0}, {6.0, 6.0}};
+    double bounds[][] = new double[][]{{-6.0, 6.0}, {-6.0, 6.0}};
 
     DefaultConfiguration.reset();
     Configuration c = new DefaultConfiguration();
@@ -95,21 +93,21 @@ public class ClassifierHyperrectangleTest
 
     assertEquals(1, classifier.getClassValue());
 
-    double v[][] = classifier.getVerticies();
+    double d[][] = classifier.getDimensions();
 
-    assertEquals(2, v.length);
+    assertEquals(2, d.length);
 
-    assertEquals(0.5, v[0][0], TH);
-    assertEquals(0.7, v[0][1], TH);
+    assertEquals(0.5, d[0][0], TH);
+    assertEquals(0.7, d[0][1], TH);
 
-    assertEquals(1.0, v[1][0], TH);
-    assertEquals(1.2, v[1][1], TH);
+    assertEquals(1.0, d[1][0], TH);
+    assertEquals(1.2, d[1][1], TH);
   }
 
   @Test
   public void test_Classify() throws InvalidConfigurationException
   {
-    double bounds[][] = new double[][]{{-6.0, -6.0}, {6.0, 6.0}};
+    double bounds[][] = new double[][]{{-6.0, 6.0}, {-6.0, 6.0}};
 
     DefaultConfiguration.reset();
     Configuration c = new DefaultConfiguration();

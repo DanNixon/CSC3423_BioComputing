@@ -5,8 +5,19 @@ import com.dan_nixon.csc3423.framework.InstanceSet;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
+/**
+ * Fitness function for use with JGAP genetic algorithm.
+ * 
+ * Defines fitness as number of correctly classified instances over total number
+ * of classified instances (unclassified instances are not counted).
+ */
 public class HyperrectangleClassificationFitnessFunction extends FitnessFunction
 {
+  /**
+   * Create new fitness function with given training set for evaluation.
+   * 
+   * @param trainingSet Evaluation training set
+   */
   public HyperrectangleClassificationFitnessFunction(InstanceSet trainingSet)
   {
     m_trainingSet = trainingSet;
