@@ -44,10 +44,9 @@ class ClassifierHyperrectangle extends Classifier
     for (int i = 0; i < dimensions; i++)
     {
       CompositeGene g = new CompositeGene(conf);
+      
       g.addGene(new DoubleGene(conf, bounds[i][0], bounds[i][1]));
       g.addGene(new DoubleGene(conf, bounds[i][0], bounds[i][1]));
-
-      // TODO: add validator
 
       sampleGenes[i] = g;
     }
