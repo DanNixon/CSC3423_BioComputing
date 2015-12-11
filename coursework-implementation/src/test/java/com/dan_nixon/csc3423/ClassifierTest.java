@@ -11,8 +11,16 @@ import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
 import org.junit.*;
 import static org.junit.Assert.*;
+import org.neuroph.core.data.DataSetRow;
 
-public class ClassifierHyperrectangleTest
+/**
+ * Tests for classifiers.
+ * 
+ * Annoyingly the Attributes class in the provided framework is a set of private
+ * static variables which having two separate test classes load a sample file
+ * break. Hence all tests are in this single file.
+ */
+public class ClassifierTest
 {
   public static final double TH = 0.0001;
 
@@ -23,6 +31,10 @@ public class ClassifierHyperrectangleTest
   {
     m_testInstances = new InstanceSet("src/test/resources/test_data", true);
   }
+  
+  //-------------------------------
+  // ClassifierHyperrectangle tests
+  //-------------------------------
 
   @Test
   public void test_CreateGenes() throws InvalidConfigurationException
@@ -130,5 +142,18 @@ public class ClassifierHyperrectangleTest
     assertEquals(-1, classifier.classifyInstance(m_testInstances.getInstance(3)));
     assertEquals(-1, classifier.classifyInstance(m_testInstances.getInstance(4)));
     assertEquals(-1, classifier.classifyInstance(m_testInstances.getInstance(5)));
+  }
+  
+  //-------------------
+  // ClassifierNN tests
+  //-------------------
+  
+  @Test
+  public void test_InstanceToRow()
+  {
+    DataSetRow row = ClassifierNN.InstanceToRow(m_testInstances.getInstance(0));
+    assertEquals(0.6, row.getInput()[0], TH);
+    assertEquals(1.1, row.getInput()[1], TH);
+    assertEquals(1.0, row.getDesiredOutput()[0], TH);
   }
 }

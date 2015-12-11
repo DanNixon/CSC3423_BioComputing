@@ -4,83 +4,98 @@ import com.dan_nixon.csc3423.framework.Attributes;
 import com.dan_nixon.csc3423.framework.Classifier;
 import com.dan_nixon.csc3423.framework.Instance;
 import com.dan_nixon.csc3423.framework.InstanceSet;
-import org.encog.engine.network.activation.ActivationSigmoid;
-import org.encog.ml.data.MLData;
-import org.encog.ml.data.MLDataSet;
-import org.encog.ml.data.basic.BasicMLData;
-import org.encog.ml.data.basic.BasicMLDataSet;
-import org.encog.neural.networks.BasicNetwork;
-import org.encog.neural.networks.layers.BasicLayer;
-import org.encog.neural.networks.training.propagation.quick.QuickPropagation;
+import org.neuroph.core.data.DataSet;
+import org.neuroph.core.data.DataSetRow;
+import org.neuroph.core.events.LearningEvent;
+import org.neuroph.core.events.LearningEventListener;
+import org.neuroph.nnet.MultiLayerPerceptron;
+import org.neuroph.nnet.learning.BackPropagation;
+import org.neuroph.util.TransferFunctionType;
 
+/**
+ * Classifier using a multi-layer neural network to solve an n-dimensional
+ * problem.
+ */
 class ClassifierNN extends Classifier
 {
+  /**
+   * Listener to provide feedback during the learning process.
+   */
+  static class LearningListener implements LearningEventListener
+  {
+    public void handleLearningEvent(LearningEvent event)
+    {
+      BackPropagation bp = (BackPropagation) event.getSource();
+      StringBuilder sb = new StringBuilder();
+      sb.append("Iteration: ");
+      sb.append(bp.getCurrentIteration());
+      sb.append(", error: ");
+      sb.append(bp.getTotalNetworkError());
+      System.out.println(sb);
+    }
+  }
+  
+  /**
+   * Converts an Instance in the coursework framework to a DataSetRow for
+   * Neuroph.
+   * @param inst Instance to convert
+   * @return DataSetRow
+   */
+  public static DataSetRow InstanceToRow(Instance inst)
+  {
+    int dimensions = Attributes.getNumAttributes();
+
+    // Create list of inputs
+    double[] inputs = new double[dimensions];
+    for (int i = 0; i < dimensions; i++)
+      inputs[i] = inst.getRealAttribute(i);
+
+    // Create row
+    DataSetRow row = new DataSetRow(inputs,
+                                    new double[]{inst.getClassValue()});
+
+    return row;
+  }
+  
+  /**
+   * Create a new neural network classifier and train the network with a
+   * training data set.
+   * @param trainingSet Training data set
+   */
   public ClassifierNN(InstanceSet trainingSet)
   {
-    int numInstances = trainingSet.numInstances();
     int dimensions = Attributes.getNumAttributes();
-
-    // Generate training data set
-    double[][] vars = new double[numInstances][dimensions];
-    double[][] ideals = new double[numInstances][1];
-
-    for (int i = 0; i < numInstances; i++) {
-      Instance inst = trainingSet.getInstance(i);
-
-      for (int j = 0; j < dimensions; j++) {
-        vars[i][j] = inst.getRealAttribute(j);
-      }
-
-      ideals[i][0] = inst.getClassValue();
-    }
-
-    MLDataSet nnTrainingSet = new BasicMLDataSet(vars, ideals);
-
-    // Configure network
-    m_network = new BasicNetwork();
-    m_network.addLayer(new BasicLayer(null, true, dimensions));
-    m_network.addLayer(new BasicLayer(new ActivationSigmoid(), true, 35));
-    m_network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
-    m_network.getStructure().finalizeStructure();
-    m_network.reset();
-
-    // Train network
-    final QuickPropagation train = new QuickPropagation(m_network, nnTrainingSet);
-    do {
-      train.iteration(500);
-      System.out.println(train.getError());
-    } while (train.getError() > 0.001);
-    train.finishTraining();
+    
+    DataSet nnTrainingSet = new DataSet(dimensions, 1);
+    for (Instance i : trainingSet.getInstances())
+      nnTrainingSet.addRow(InstanceToRow(i));
+    
+    m_mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH,
+                                              dimensions, 20, 20, 1);
+    
+    m_mlPerceptron.getLearningRule().addListener(new LearningListener());
+    
+    m_mlPerceptron.getLearningRule().setLearningRate(0.01);
+    m_mlPerceptron.getLearningRule().setMaxIterations(10000);
+    
+    m_mlPerceptron.learn(nnTrainingSet);
   }
-
+  
   @Override
-  public int classifyInstance(Instance inst)
+  public int classifyInstance(Instance i)
   {
-    int dimensions = Attributes.getNumAttributes();
-    
-    double[] params = new double[dimensions];
-    for (int i = 0; i < dimensions; i++)
-      params[i] = inst.getRealAttribute(i);
-    
-    MLData input = new BasicMLData(params);
-    final MLData output = m_network.compute(input);
-    
-    return (int) output.getData(0);
+    m_mlPerceptron.setInput(InstanceToRow(i).getInput());
+    m_mlPerceptron.calculate();
+    int classification = (int) (m_mlPerceptron.getOutput()[0] + 0.5);
+    return classification;
   }
 
   @Override
   public void printClassifier()
   {
-    System.out.println(this);
+    // TODO
+    System.out.println("TODO");
   }
   
-  @Override
-  public String toString()
-  {
-    StringBuilder sb = new StringBuilder();
-    sb.append(m_network);
-    return sb.toString();
-  }
-  
-  BasicNetwork m_network;
+  private final MultiLayerPerceptron m_mlPerceptron;
 }
