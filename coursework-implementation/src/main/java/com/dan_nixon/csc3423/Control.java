@@ -5,6 +5,7 @@
 package com.dan_nixon.csc3423;
 
 import com.dan_nixon.csc3423.framework.*;
+import com.dan_nixon.csc3423.vis.NeuralNetworkFrame;
 import org.jgap.InvalidConfigurationException;
 
 public class Control {
@@ -17,6 +18,8 @@ public class Control {
    * @param args the command line arguments
    */
   public static void main(String[] args) {
+    NeuralNetworkFrame f = new NeuralNetworkFrame();
+    
     Rand.initRand();
     // Specifyig a random seed will allow you to repeat experiments with the same exact conditions
     //Rand.initRand(0);
