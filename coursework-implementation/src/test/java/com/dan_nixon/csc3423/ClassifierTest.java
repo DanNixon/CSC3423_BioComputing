@@ -15,7 +15,7 @@ import org.neuroph.core.data.DataSetRow;
 
 /**
  * Tests for classifiers.
- * 
+ *
  * Annoyingly the Attributes class in the provided framework is a set of private
  * static variables which having two separate test classes load a sample file
  * break. Hence all tests are in this single file.
@@ -31,7 +31,7 @@ public class ClassifierTest
   {
     m_testInstances = new InstanceSet("src/test/resources/test_data", true);
   }
-  
+
   //-------------------------------
   // ClassifierHyperrectangle tests
   //-------------------------------
@@ -143,11 +143,11 @@ public class ClassifierTest
     assertEquals(-1, classifier.classifyInstance(m_testInstances.getInstance(4)));
     assertEquals(-1, classifier.classifyInstance(m_testInstances.getInstance(5)));
   }
-  
+
   //-------------------
   // ClassifierNN tests
   //-------------------
-  
+
   @Test
   public void test_InstanceToRow()
   {

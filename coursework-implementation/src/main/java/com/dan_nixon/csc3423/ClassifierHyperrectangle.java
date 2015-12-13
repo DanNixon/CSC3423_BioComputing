@@ -29,12 +29,12 @@ class ClassifierHyperrectangle extends Classifier
   /**
    * Creates an array of Genes describing the hyperrectangle needed for
    * classification of a given dimensionality.
-   * 
+   *
    * @param conf JGAP configuration
    * @param dimensions Number of dimensions
-   * @param bounds Bounds for dimensional genes 
+   * @param bounds Bounds for dimensional genes
    * @return Array of Genes
-   * @throws InvalidConfigurationException 
+   * @throws InvalidConfigurationException
    */
   public static Gene[] createSampleGenes(Configuration conf, int dimensions, double[][] bounds) throws InvalidConfigurationException
   {
@@ -44,7 +44,7 @@ class ClassifierHyperrectangle extends Classifier
     for (int i = 0; i < dimensions; i++)
     {
       CompositeGene g = new CompositeGene(conf);
-      
+
       g.addGene(new DoubleGene(conf, bounds[i][0], bounds[i][1]));
       g.addGene(new DoubleGene(conf, bounds[i][0], bounds[i][1]));
 
@@ -59,9 +59,9 @@ class ClassifierHyperrectangle extends Classifier
 
   /**
    * Gets the upper and lower bounds for each dimension of an InstanceSet.
-   * 
+   *
    * Array is in format: [dimension][0:lower, 1:upper]
-   * 
+   *
    * @param is InstanceSet to get bounds of
    * @return Array of bounds
    */
@@ -95,9 +95,9 @@ class ClassifierHyperrectangle extends Classifier
 
   /**
    * Adds padding to an array of bounds.
-   * 
+   *
    * Subtracting from lower bounds and adding to upper bounds.
-   * 
+   *
    * @param bounds Array of bounds
    * @param padding Amount of padding
    * @return Array of bounds
@@ -117,9 +117,9 @@ class ClassifierHyperrectangle extends Classifier
 
   /**
    * Learn a new classifier from a training set.
-   * 
+   *
    * @param trainingSet Training set
-   * @throws InvalidConfigurationException 
+   * @throws InvalidConfigurationException
    */
   public ClassifierHyperrectangle(InstanceSet trainingSet) throws InvalidConfigurationException
   {
@@ -164,7 +164,7 @@ class ClassifierHyperrectangle extends Classifier
 
   /**
    * Create a classifier from Genes contained in a Chromosome.
-   * 
+   *
    * @param c CHromosome
    */
   public ClassifierHyperrectangle(IChromosome c)
@@ -198,9 +198,9 @@ class ClassifierHyperrectangle extends Classifier
 
   /**
    * Retrieves the array of all dimensions.
-   * 
+   *
    * In format: [[dimension][0:lower, 1:upper]
-   * 
+   *
    * @return Array of vertices
    */
   public double[][] getDimensions()
@@ -210,9 +210,9 @@ class ClassifierHyperrectangle extends Classifier
 
   /**
    * Retrieves a dimension by index.
-   * 
+   *
    * In format: [0:lower, 1:upper]
-   * 
+   *
    * @param i Dimension index
    * @return Dimension
    */
@@ -223,7 +223,7 @@ class ClassifierHyperrectangle extends Classifier
 
   /**
    * Gets the class value of this classifier.
-   * 
+   *
    * @return Class value
    */
   public int getClassValue()
@@ -234,7 +234,7 @@ class ClassifierHyperrectangle extends Classifier
   /**
    * Sets the dimensions and class value from the values of Genes in a
    * Chromosome.
-   * 
+   *
    * @param c Chromosome
    */
   private void updateFromChromosome(IChromosome c)

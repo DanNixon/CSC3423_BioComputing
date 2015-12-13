@@ -18,11 +18,11 @@ class NNLearnListener implements LearningEventListener
   {
       m_vis = vis;
   }
-  
+
   public void handleLearningEvent(LearningEvent event)
   {
     BackPropagation bp = (BackPropagation) event.getSource();
-    
+
     // Handle printing to stdout
     StringBuilder sb = new StringBuilder();
     sb.append("Iteration: ");
@@ -30,7 +30,7 @@ class NNLearnListener implements LearningEventListener
     sb.append(", error: ");
     sb.append(bp.getTotalNetworkError());
     System.out.println(sb);
-    
+
     // Handle visualisation
     if (m_vis != null)
     {
@@ -38,6 +38,6 @@ class NNLearnListener implements LearningEventListener
       m_vis.repaint();
     }
   }
-    
+
   NeuralNetworkFrame m_vis;
 }

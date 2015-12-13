@@ -69,9 +69,9 @@ public class Control {
   public static Classifier generateSubsolution(InstanceSet trainingSet)
   {
     //return new ClassifierRandomSphere(trainingSet);
-    
+
     return new ClassifierNN(trainingSet, true);
-    
+
 //    try
 //    {
 //      return new ClassifierHyperrectangle(trainingSet);

@@ -15,7 +15,7 @@ import org.neuroph.util.TransferFunctionType;
  * problem.
  */
 class ClassifierNN extends Classifier
-{ 
+{
   /**
    * Converts an Instance in the coursework framework to a DataSetRow for
    * Neuroph.
@@ -37,7 +37,7 @@ class ClassifierNN extends Classifier
 
     return row;
   }
-  
+
   /**
    * Create a new neural network classifier and train the network with a
    * training data set.
@@ -47,26 +47,26 @@ class ClassifierNN extends Classifier
   public ClassifierNN(InstanceSet trainingSet, boolean visualise)
   {
     int dimensions = Attributes.getNumAttributes();
-    
+
     DataSet nnTrainingSet = new DataSet(dimensions, 1);
     for (Instance i : trainingSet.getInstances())
       nnTrainingSet.addRow(InstanceToRow(i));
-    
+
     m_mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH,
                                               dimensions, 20, 20, 1);
-    
+
     NeuralNetworkFrame vis = null;
     if (visualise)
       vis = new NeuralNetworkFrame(m_mlPerceptron);
-    
+
     m_mlPerceptron.getLearningRule().addListener(new NNLearnListener(vis));
-    
+
     m_mlPerceptron.getLearningRule().setLearningRate(0.01);
     m_mlPerceptron.getLearningRule().setMaxIterations(10000);
-    
+
     m_mlPerceptron.learn(nnTrainingSet);
   }
-  
+
   @Override
   public int classifyInstance(Instance i)
   {
@@ -82,6 +82,6 @@ class ClassifierNN extends Classifier
     // TODO
     System.out.println("TODO");
   }
-  
+
   private final MultiLayerPerceptron m_mlPerceptron;
 }
