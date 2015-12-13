@@ -21,7 +21,7 @@ import org.jgap.impl.IntegerGene;
  * Classifier using a genetic algorithm and hyperrectangle knowledge
  * representation to solve an n-dimensional classification problem.
  */
-class ClassifierHyperrectangle extends Classifier
+public class ClassifierHyperrectangle extends Classifier
 {
   public static final int MAX_ITERATIONS = 100;
   public static final double EXIT_THRESHOLD = 0.95;

@@ -14,7 +14,7 @@ import org.neuroph.util.TransferFunctionType;
  * Classifier using a multi-layer neural network to solve an n-dimensional
  * problem.
  */
-class ClassifierNN extends Classifier
+public class ClassifierNN extends Classifier
 {
   /**
    * Converts an Instance in the coursework framework to a DataSetRow for

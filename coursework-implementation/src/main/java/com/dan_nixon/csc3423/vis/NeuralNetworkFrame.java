@@ -22,10 +22,10 @@ import org.neuroph.nnet.comp.neuron.BiasNeuron;
  */
 public class NeuralNetworkFrame extends Frame
 {
-  public final int PADDING = 20;
-  public final int NODE_DIAMETER = 20;
-  public final double HUE_MIN = 0.0;
-  public final double HUE_MAX = 1.0;
+  public static final int PADDING = 20;
+  public static final int NODE_DIAMETER = 20;
+  public static final double HUE_MIN = 0.0;
+  public static final double HUE_MAX = 1.0;
 
   /**
    * Retrieve the minimum value in an array of Double objects.
@@ -62,7 +62,7 @@ public class NeuralNetworkFrame extends Frame
   /**
    * Retrieve the maximum number of neurons in a neural network.
    * @param net Neural network
-   * @retrun Maximum layer size
+   * @return Maximum layer size
    */
   public static int maxLayerSize(NeuralNetwork net)
   {

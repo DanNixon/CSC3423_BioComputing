@@ -5,6 +5,7 @@
 package com.dan_nixon.csc3423;
 
 import com.dan_nixon.csc3423.framework.*;
+import com.dan_nixon.csc3423.vis.HyperrectangleFrame;
 import org.jgap.InvalidConfigurationException;
 
 public class Control {
@@ -29,6 +30,9 @@ public class Control {
     ClassifierAggregated solution = new ClassifierAggregated();
     int countIterations=0;
     System.out.println();
+    
+    // Uncoment for hyperrectangle visualisation
+    m_hyperrectFrame = new HyperrectangleFrame(trainingSet);
 
     // We will train classifiers while there are instances in the training set to cover
     while(trainingSet.numInstances()>0) {
@@ -70,15 +74,17 @@ public class Control {
   {
     //return new ClassifierRandomSphere(trainingSet);
 
-    return new ClassifierNN(trainingSet, true);
+    //return new ClassifierNN(trainingSet, true);
 
-//    try
-//    {
-//      return new ClassifierHyperrectangle(trainingSet);
-//    }
-//    catch (InvalidConfigurationException ice)
-//    {
-//      return null;
-//    }
+    try
+    {
+      return new ClassifierHyperrectangle(trainingSet);
+    }
+    catch (InvalidConfigurationException ice)
+    {
+      return null;
+    }
   }
+  
+  public static HyperrectangleFrame m_hyperrectFrame;
 }
