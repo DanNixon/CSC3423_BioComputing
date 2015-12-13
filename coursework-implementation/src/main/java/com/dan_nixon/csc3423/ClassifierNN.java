@@ -4,12 +4,10 @@ import com.dan_nixon.csc3423.framework.Attributes;
 import com.dan_nixon.csc3423.framework.Classifier;
 import com.dan_nixon.csc3423.framework.Instance;
 import com.dan_nixon.csc3423.framework.InstanceSet;
+import com.dan_nixon.csc3423.vis.NeuralNetworkFrame;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
-import org.neuroph.core.events.LearningEvent;
-import org.neuroph.core.events.LearningEventListener;
 import org.neuroph.nnet.MultiLayerPerceptron;
-import org.neuroph.nnet.learning.BackPropagation;
 import org.neuroph.util.TransferFunctionType;
 
 /**
@@ -17,24 +15,7 @@ import org.neuroph.util.TransferFunctionType;
  * problem.
  */
 class ClassifierNN extends Classifier
-{
-  /**
-   * Listener to provide feedback during the learning process.
-   */
-  static class LearningListener implements LearningEventListener
-  {
-    public void handleLearningEvent(LearningEvent event)
-    {
-      BackPropagation bp = (BackPropagation) event.getSource();
-      StringBuilder sb = new StringBuilder();
-      sb.append("Iteration: ");
-      sb.append(bp.getCurrentIteration());
-      sb.append(", error: ");
-      sb.append(bp.getTotalNetworkError());
-      System.out.println(sb);
-    }
-  }
-  
+{ 
   /**
    * Converts an Instance in the coursework framework to a DataSetRow for
    * Neuroph.
@@ -61,8 +42,9 @@ class ClassifierNN extends Classifier
    * Create a new neural network classifier and train the network with a
    * training data set.
    * @param trainingSet Training data set
+   * @param visualise If visualisation should be enabled
    */
-  public ClassifierNN(InstanceSet trainingSet)
+  public ClassifierNN(InstanceSet trainingSet, boolean visualise)
   {
     int dimensions = Attributes.getNumAttributes();
     
@@ -73,7 +55,11 @@ class ClassifierNN extends Classifier
     m_mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH,
                                               dimensions, 20, 20, 1);
     
-    m_mlPerceptron.getLearningRule().addListener(new LearningListener());
+    NeuralNetworkFrame vis = null;
+    if (visualise)
+      vis = new NeuralNetworkFrame(m_mlPerceptron);
+    
+    m_mlPerceptron.getLearningRule().addListener(new NNLearnListener(vis));
     
     m_mlPerceptron.getLearningRule().setLearningRate(0.01);
     m_mlPerceptron.getLearningRule().setMaxIterations(10000);
