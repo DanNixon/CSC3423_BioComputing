@@ -25,7 +25,7 @@ public class NeuralNetworkFrame extends Frame
   public static final int PADDING = 20;
   public static final int NODE_DIAMETER = 20;
   public static final double HUE_MIN = 0.0;
-  public static final double HUE_MAX = 1.0;
+  public static final double HUE_MAX = 0.9;
 
   /**
    * Retrieve the minimum value in an array of Double objects.
@@ -177,13 +177,14 @@ public class NeuralNetworkFrame extends Frame
     {
       double h = ((0.01 * (double) i) * (HUE_MAX - HUE_MIN)) + HUE_MIN;
       g.setColor(Color.getHSBColor((float) h, 0.9f, 0.9f));
-      int y = 100 - i;
-      g.drawLine(0, y, 10, y);
+      int y = 150 - i;
+      g.drawLine(50, y, 60, y);
     }
 
+    // Draw weight scale range numbers
     g.setColor(Color.BLACK);
-    g.drawString(Double.toString(maxWeight), 12, 30);
-    g.drawString(Double.toString(minWeight), 12, 100);
+    g.drawString(Double.toString(maxWeight), 65, 65);
+    g.drawString(Double.toString(minWeight), 65, 150);
   }
 
   /**

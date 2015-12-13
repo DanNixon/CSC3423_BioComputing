@@ -25,6 +25,7 @@ public class HyperrectangleFrame extends Frame
     
     setSize(600, 600);
     
+    // Cache data for coordinate generation
     double[][] bounds = ClassifierHyperrectangle.getInstanceSetBounds(trainingData);
     if (bounds.length != 2)
       throw new RuntimeException("Must be 2D data");
@@ -48,11 +49,8 @@ public class HyperrectangleFrame extends Frame
   public void paint(Graphics g)
   {
     // Draw data points
-    for (Instance i : m_trainingData.getInstances())
+    for (Instance i : m_trainingData.getInstancesOrig())
     {
-      double x = (i.getRealAttribute(0) - m_minX) * m_xFact + PADDING - POINT_RADIUS;
-      double y = (i.getRealAttribute(1) - m_minY) * m_yFact + PADDING - POINT_RADIUS;
-      
       switch(i.getClassValue())
       {
         case 0:
@@ -63,13 +61,33 @@ public class HyperrectangleFrame extends Frame
           break;
       }
       
-      g.fillOval((int) x, (int) y, POINT_RADIUS * 2, POINT_RADIUS * 2);
+      g.fillOval((int) getXDim(i.getRealAttribute(0)),
+                 (int) getYDim(i.getRealAttribute(1)),
+                 POINT_RADIUS * 2,
+                 POINT_RADIUS * 2);
     }
     
     // Draw classifiers
     for (ClassifierHyperrectangle c : m_classifiers)
-    {
-      // TODO
+    { 
+      switch(c.getClassValue())
+      {
+        case 0:
+          g.setColor(Color.BLUE);
+          break;
+        case 1:
+          g.setColor(Color.RED);
+          break;
+      }
+      
+      double[][] dimensions = c.getDimensions();
+      
+      int x = (int) getXDim(dimensions[0][0]);
+      int y = (int) getYDim(dimensions[1][0]);
+      int w = (int) getXDim(dimensions[0][1]) - x;
+      int h = (int) getYDim(dimensions[1][1]) - y;
+      
+      g.drawRect(x, y, w, h);
     }
   }
   
@@ -80,6 +98,26 @@ public class HyperrectangleFrame extends Frame
   public void addClassifier(ClassifierHyperrectangle c)
   {
     m_classifiers.add(c);
+  }
+  
+  /**
+   * Calculate X dimension form cached values.
+   * @param xValue Raw X value
+   * @return Position on screen
+   */
+  public double getXDim(double xValue)
+  {
+    return (xValue - m_minX) * m_xFact + PADDING - POINT_RADIUS;
+  }
+  
+  /**
+   * Calculate Y dimension form cached values.
+   * @param yValue Raw Y value
+   * @return Position on screen
+   */
+  public double getYDim(double yValue)
+  {
+    return (yValue - m_minY) * m_yFact + PADDING - POINT_RADIUS;
   }
   
   private final InstanceSet m_trainingData;
