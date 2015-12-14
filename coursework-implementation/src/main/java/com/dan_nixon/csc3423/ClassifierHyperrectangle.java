@@ -25,6 +25,7 @@ public class ClassifierHyperrectangle extends Classifier
 {
   public static final int MAX_ITERATIONS = 100;
   public static final double EXIT_THRESHOLD = 0.95;
+  public static final int POPULATION_SIZE = 100;
 
   /**
    * Creates an array of Genes describing the hyperrectangle needed for
@@ -128,7 +129,7 @@ public class ClassifierHyperrectangle extends Classifier
     // Configuration
     DefaultConfiguration.reset();
     Configuration conf = new DefaultConfiguration();
-    conf.setPopulationSize(100);
+    conf.setPopulationSize(POPULATION_SIZE);
 
     // Setup fitness function
     FitnessFunction fit = new HyperrectangleClassificationFitnessFunction(trainingSet);
