@@ -5,9 +5,12 @@ import com.dan_nixon.csc3423.framework.Classifier;
 import com.dan_nixon.csc3423.framework.Instance;
 import com.dan_nixon.csc3423.framework.InstanceSet;
 import com.dan_nixon.csc3423.vis.NeuralNetworkFrame;
+import org.neuroph.core.Layer;
+import org.neuroph.core.Neuron;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.nnet.MultiLayerPerceptron;
+import org.neuroph.nnet.comp.neuron.BiasNeuron;
 import org.neuroph.util.TransferFunctionType;
 
 /**
@@ -79,8 +82,42 @@ public class ClassifierNN extends Classifier
   @Override
   public void printClassifier()
   {
-    // TODO
-    System.out.println("TODO");
+    System.out.println(this);
+  }
+  
+  /**
+   * Outputs network topology as string.
+   * Note that only the topology is output, also outputting the weights would
+   * result in a huge string.
+   * @return String representation of topology
+   */
+  @Override
+  public String toString()
+  {
+    StringBuilder sb = new StringBuilder();
+    
+    sb.append("NeuralNetwork[");
+    for (int i = 0; i < m_mlPerceptron.getLayersCount(); i++)
+    {
+      if (i > 0)
+        sb.append(",");
+      
+      Layer l = m_mlPerceptron.getLayerAt(i);
+      sb.append(l.getNeuronsCount());
+      
+      int numBias = 0;
+      for (Neuron n : l.getNeurons())
+      {
+        if (n instanceof BiasNeuron)
+          numBias++;
+      }
+      sb.append("(");
+      sb.append(numBias);
+      sb.append(")");
+    }
+    sb.append("]");
+
+    return sb.toString();
   }
 
   private final MultiLayerPerceptron m_mlPerceptron;
