@@ -57,6 +57,10 @@
 
 TODO
 
+\subsection{Implementation}
+
+TODO
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.4\textwidth]{out/alg1_kr.eps}
@@ -75,7 +79,38 @@ TODO
 
 TODO
 
+\subsection{Tuning}
+
+TODO
+
+\begin{table}[]
+  \centering
+  \begin{tabular}{@{}lllllll@{}}
+    \toprule
+    Population Size & Learn Rate & Tournament Size & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
+    \midrule
+    100             & 0.9        &                 & 95.26         & 4.74       & 0                 & 23.96    \\
+    100             & 0.95       &                 & 97.37         & 2.63       & 0                 & 33.622   \\
+    100             & 0.99       &                 & 95.79         & 4.21       & 0                 & 46.085   \\
+    20              & 0.9        &                 & 94.21         & 5.79       & 0                 & 14.269   \\
+    20              & 0.95       &                 & 94.74         & 5.26       & 0                 & 19.23    \\
+    20              & 0.99       &                 & 95.79         & 4.21       & 0                 & 23.143   \\
+    200             & 0.9        &                 & 95.26         & 4.21       & 0.53              & 56.417   \\
+    200             & 0.95       &                 & 94.21         & 5.79       & 0                 & 60.465   \\
+    200             & 0.99       &                 & 94.74         & 5.26       & 0                 & 73.05    \\
+    \bottomrule
+  \end{tabular}
+  \caption{Genetic algorithm tuning}
+  \label{tab:ga_tuning}
+\end{table}
+
+TODO
+
 \section{Neural Network}
+
+TODO
+
+\subsection{Implementation}
 
 TODO
 
@@ -85,6 +120,34 @@ TODO
   \caption{Neural network implementation UML diagram}
   \label{fig:alg2_uml}
 \end{figure}
+
+TODO
+
+\subsection{Tuning}
+
+TODO
+
+\begin{table}[]
+  \centering
+  \begin{tabular}{@{}llllll@{}}
+    \toprule
+    Transfer Function  & Topology     & Learning Rate & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
+    \midrule
+    Sigmoid            & 2, 5, 1      & 0.01          & 91.05         & 8.95       & 0                 & 14.075   \\
+    Hyperbolic Tangent & 2, 5, 1      & 0.01          & 92.63         & 7.37       & 0                 & 14.396   \\
+    Sigmoid            & 2, 10, 1     & 0.01          & 83.68         & 16.32      & 0                 & 22.149   \\
+    Hyperbolic Tangent & 2, 10, 1     & 0.01          & 94.74         & 5.26       & 0                 & 25.602   \\
+    Sigmoid            & 2, 20, 20, 1 & 0.01          & 97.37         & 2.63       & 0                 & 11.453   \\
+    Hyperbolic Tangent & 2, 20, 20, 1 & 0.01          & 97.37         & 2.63       & 0                 & 7.098    \\
+    Sigmoid            & 2, 20, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 6.355    \\
+    Hyperbolic Tangent & 2, 20, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 2.667    \\
+    Sigmoid            & 2, 10, 10, 1 & 0.01          & (1)           & (1)        & (1)               & (1)      \\
+    Hyperbolic Tangent & 2, 10, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 3.728    \\
+    \bottomrule
+  \end{tabular}
+  \caption{Neural network tuning}
+  \label{tab:nn_tuning}
+\end{table}
 
 TODO
 
