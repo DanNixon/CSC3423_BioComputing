@@ -88,37 +88,35 @@ TODO
   \centering
   \begin{tabular}{@{}lllllll@{}}
     \toprule
-    Population Size & Learn Rate & Selector         & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
+    Population Size & Learn Rate & Selector       & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
     \midrule
-    100             & 0.9        & Best (0.9)       & 95.26         & 4.74       & 0                 & 23.96    \\
-    100             & 0.95       & Best (0.9)       & 97.37         & 2.63       & 0                 & 33.622   \\
-    100             & 0.99       & Best (0.9)       & 95.79         & 4.21       & 0                 & 46.085   \\
-    20              & 0.9        & Best (0.9)       & 94.21         & 5.79       & 0                 & 14.269   \\
-    20              & 0.95       & Best (0.9)       & 94.74         & 5.26       & 0                 & 19.23    \\
-    20              & 0.99       & Best (0.9)       & 95.79         & 4.21       & 0                 & 23.143   \\
-    200             & 0.9        & Best (0.9)       & 95.26         & 4.21       & 0.53              & 56.417   \\
-    200             & 0.95       & Best (0.9)       & 94.21         & 5.79       & 0                 & 60.465   \\
-    200             & 0.99       & Best (0.9)       & 94.74         & 5.26       & 0                 & 73.05    \\
-
-    100             & 0.9        & Tournament (2)   &          &        & 0                 &    \\
-    100             & 0.95       & Tournament (2)   &          &        & 0                 &    \\
-    100             & 0.99       & Tournament (2)   &          &        & 0                 &    \\
-    20              & 0.9        & Tournament (2)   &          &        & 0                 &    \\
-    20              & 0.95       & Tournament (2)   &          &        & 0                 &    \\
-    20              & 0.99       & Tournament (2)   &          &        & 0                 &    \\
-    200             & 0.9        & Tournament (2)   &          &        & 0                 &    \\
-    200             & 0.95       & Tournament (2)   &          &        & 0                 &    \\
-    200             & 0.99       & Tournament (2)   &          &        & 0                 &    \\
-
-    100             & 0.9        & Tournament (5)   &          &        & 0                 &    \\
-    100             & 0.95       & Tournament (5)   &          &        & 0                 &    \\
-    100             & 0.99       & Tournament (5)   &          &        & 0                 &    \\
-    20              & 0.9        & Tournament (5)   &          &        & 0                 &    \\
-    20              & 0.95       & Tournament (5)   &          &        & 0                 &    \\
-    20              & 0.99       & Tournament (5)   &          &        & 0                 &    \\
-    200             & 0.9        & Tournament (5)   &          &        & 0                 &    \\
-    200             & 0.95       & Tournament (5)   &          &        & 0                 &    \\
-    200             & 0.99       & Tournament (5)   &          &        & 0                 &    \\
+    100             & 0.9        & Best (0.9)     & 95.26         & 4.74       & 0                 & 23.96    \\
+    100             & 0.95       & Best (0.9)     & 97.37         & 2.63       & 0                 & 33.622   \\
+    100             & 0.99       & Best (0.9)     & 95.79         & 4.21       & 0                 & 46.085   \\
+    20              & 0.9        & Best (0.9)     & 94.21         & 5.79       & 0                 & 14.269   \\
+    20              & 0.95       & Best (0.9)     & 94.74         & 5.26       & 0                 & 19.23    \\
+    20              & 0.99       & Best (0.9)     & 95.79         & 4.21       & 0                 & 23.143   \\
+    200             & 0.9        & Best (0.9)     & 95.26         & 4.21       & 0.53              & 56.417   \\
+    200             & 0.95       & Best (0.9)     & 94.21         & 5.79       & 0                 & 60.465   \\
+    200             & 0.99       & Best (0.9)     & 94.74         & 5.26       & 0                 & 73.05    \\
+    100             & 0.9        & Tournament (2) & 95.79         & 4.21       & 0                 & 53.039   \\
+    100             & 0.95       & Tournament (2) & 95.79         & 4.21       & 0                 & 67.503   \\
+    100             & 0.99       & Tournament (2) & 96.84         & 3.16       & 0                 & 93.144   \\
+    20              & 0.9        & Tournament (2) & 94.21         & 5.26       & 0.53              & 35.135   \\
+    20              & 0.95       & Tournament (2) & 96.32         & 3.68       & 0                 & 50.156   \\
+    20              & 0.99       & Tournament (2) & 91.58         & 8.42       & 0                 & 32.734   \\
+    200             & 0.9        & Tournament (2) & 94.74         & 5.26       & 0                 & 77.3     \\
+    200             & 0.95       & Tournament (2) & 96.32         & 3.68       & 0                 & 83.885   \\
+    200             & 0.99       & Tournament (2) & 95.79         & 4.21       & 0                 & 100.731  \\
+    100             & 0.9        & Tournament (5) & 95.26         & 4.74       & 0                 & 66.057   \\
+    100             & 0.95       & Tournament (5) & 96.32         & 3.68       & 0                 & 82.002   \\
+    100             & 0.99       & Tournament (5) & 95.79         & 3.68       & 0.53              & 106.346  \\
+    20              & 0.9        & Tournament (5) & 93.16         & 6.84       & 0                 & 37.7     \\
+    20              & 0.95       & Tournament (5) & 94.21         & 5.79       & 0                 & 49.235   \\
+    20              & 0.99       & Tournament (5) & 89.47         & 10.53      & 0                 & 41.093   \\
+    200             & 0.9        & Tournament (5) & 95.79         & 4.21       & 0                 & 138.576  \\
+    200             & 0.95       & Tournament (5) & 94.21         & 5.79       & 0                 & 103.349  \\
+    200             & 0.99       & Tournament (5) & 95.79         & 4.21       & 0                 & 129.103  \\
     \bottomrule
   \end{tabular}
   \caption{Genetic algorithm tuning}
@@ -152,18 +150,18 @@ TODO
   \centering
   \begin{tabular}{@{}lllllll@{}}
     \toprule
-    Transfer Function  & Topology     & Learning Rate & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
+    Transfer Function  & Topology     & Learning Rate & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s)   \\
     \midrule
-    Sigmoid            & 2, 5, 1      & 0.01          & 91.05         & 8.95       & 0                 & 14.075   \\
-    Hyperbolic Tangent & 2, 5, 1      & 0.01          & 92.63         & 7.37       & 0                 & 14.396   \\
-    Sigmoid            & 2, 10, 1     & 0.01          & 83.68         & 16.32      & 0                 & 22.149   \\
-    Hyperbolic Tangent & 2, 10, 1     & 0.01          & 94.74         & 5.26       & 0                 & 25.602   \\
-    Sigmoid            & 2, 20, 20, 1 & 0.01          & 97.37         & 2.63       & 0                 & 11.453   \\
-    Hyperbolic Tangent & 2, 20, 20, 1 & 0.01          & 97.37         & 2.63       & 0                 & 7.098    \\
-    Sigmoid            & 2, 20, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 6.355    \\
-    Hyperbolic Tangent & 2, 20, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 2.667    \\
-    Sigmoid            & 2, 10, 10, 1 & 0.01          & (1)           & (1)        & (1)               & (1)      \\
-    Hyperbolic Tangent & 2, 10, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 3.728    \\
+    Sigmoid            & 2, 5, 1      & 0.01          & 91.05         & 8.95       & 0                 & 14.075     \\
+    Hyperbolic Tangent & 2, 5, 1      & 0.01          & 92.63         & 7.37       & 0                 & 14.396     \\
+    Sigmoid            & 2, 10, 1     & 0.01          & 83.68         & 16.32      & 0                 & 22.149     \\
+    Hyperbolic Tangent & 2, 10, 1     & 0.01          & 94.74         & 5.26       & 0                 & 25.602     \\
+    Sigmoid            & 2, 20, 20, 1 & 0.01          & 97.37         & 2.63       & 0                 & 11.453     \\
+    Hyperbolic Tangent & 2, 20, 20, 1 & 0.01          & 97.37         & 2.63       & 0                 & 7.098      \\
+    Sigmoid            & 2, 20, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 6.355      \\
+    Hyperbolic Tangent & 2, 20, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 2.667      \\
+    Sigmoid            & 2, 10, 10, 1 & 0.01          & 92.11 (1)     & 7.89 (1)   & 0                 & 63.059 (1) \\
+    Hyperbolic Tangent & 2, 10, 10, 1 & 0.01          & 97.37         & 2.63       & 0                 & 3.728      \\
     \bottomrule
   \end{tabular}
   \caption{Neural network tuning}

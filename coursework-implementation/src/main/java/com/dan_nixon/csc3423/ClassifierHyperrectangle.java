@@ -16,7 +16,6 @@ import org.jgap.impl.CompositeGene;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 import org.jgap.impl.IntegerGene;
-import org.jgap.impl.TournamentSelector;
 
 /**
  * Classifier using a genetic algorithm and hyperrectangle knowledge
@@ -25,8 +24,8 @@ import org.jgap.impl.TournamentSelector;
 public class ClassifierHyperrectangle extends Classifier
 {
   public static final int MAX_ITERATIONS = 100;
-  public static final double EXIT_THRESHOLD = 0.95;
   public static final int POPULATION_SIZE = 100;
+  public static final double TARGET_LEARN_ACCURACY = 0.95;
 
   /**
    * Creates an array of Genes describing the hyperrectangle needed for
@@ -131,7 +130,6 @@ public class ClassifierHyperrectangle extends Classifier
     DefaultConfiguration.reset();
     Configuration conf = new DefaultConfiguration();
     conf.setPopulationSize(POPULATION_SIZE);
-    conf.setNaturalSelector(new TournamentSelector(conf, 5, 1.0));
 
     // Setup fitness function
     FitnessFunction fit = new HyperrectangleClassificationFitnessFunction(trainingSet);
@@ -157,7 +155,7 @@ public class ClassifierHyperrectangle extends Classifier
       bestSolution = population.getFittestChromosome();
 
       double bestFitness = bestSolution.getFitnessValue();
-      if (bestFitness > EXIT_THRESHOLD)
+      if (bestFitness > TARGET_LEARN_ACCURACY)
         break;
     }
 
