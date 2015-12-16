@@ -55,32 +55,61 @@
 \end{abstract}
 
 \section{Genetic Algorithm}
+\label{sec:ga}
 
 TODO
 
 \subsection{Implementation}
+\label{sec:ga_implementation}
 
-TODO
+The implementation of the genetic algorithm mostly follows what was described in
+the proposal document however with several important changes that were required
+as part of an optimisation or technical limitation.
+
+The first notable change is the data format of the knowledge representation,
+previously this would have stored an "origin" point and a length in each
+dimension to denote the bounds of the hyperrectangle.
+
+In the final implementation this has been changed to storing two points
+diagonally opposite from each other as shown in figure \ref{fig:ga_kr}, this was
+due to an optimisation that allowed the values of the genes that represented the
+coordinates of each point to be constrained between two values, this was done to
+limit the search space the mutations of a new classifier would operate within in
+order to converge to the best solution faster.
+
+This optimisation simply performs a linear search through each \texttt{Instance}
+of the training \texttt{InstanceSet} in order to obtain the minimum and maximum
+values for each dimension and then sets the limits of the relevant
+\texttt{DoubleGene} to these values plus a padding constant.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.4\textwidth]{out/alg1_kr.eps}
   \caption{3D hyperrectangle classifier}
-  \label{fig:alg1_kr}
+  \label{fig:ga_kr}
 \end{figure}
 
-TODO
+It was also my intention to add validation to the \texttt{CompositeGene} which
+would hold the upper and lower positions of a single dimension, however instead
+of generating a new mutation on a failed validation the JGAP framework instead
+aborted the entire evolution step.
+
+The implementation of the genetic algorithm was done using the JGAP \cite{jgap}
+Java library, the structure of the code the was used to integrate this into the
+provided framework is shown in figure \ref{fig:ga_uml}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{out/alg1_uml.1}
   \caption{Genetic algorithm implementation UML diagram}
-  \label{fig:alg1_uml}
+  \label{fig:ga_uml}
 \end{figure}
 
-TODO
+The final implementation uses a selection algorithm that selects the top
+candidates based on their fitness value, 
 
 \subsection{Tuning}
+\label{sec:ga_tuning}
 
 TODO
 
@@ -126,10 +155,12 @@ TODO
 TODO
 
 \section{Neural Network}
+\label{sec:nn}
 
 TODO
 
 \subsection{Implementation}
+\label{sec:nn_implementation}
 
 TODO
 
@@ -137,12 +168,13 @@ TODO
   \centering
   \includegraphics[width=0.4\textwidth]{out/alg2_uml.1}
   \caption{Neural network implementation UML diagram}
-  \label{fig:alg2_uml}
+  \label{fig:nn_uml}
 \end{figure}
 
 TODO
 
 \subsection{Tuning}
+\label{sec:nn_tuning}
 
 TODO
 
@@ -171,8 +203,15 @@ TODO
 TODO
 
 \section{Comparison of algorithms}
+\label{sec:comparison}
 
-TODO
+A comparison between the performance of the two algorithms, both in terms of the
+time taken for learning and the accuracy of the resulting classification was
+performed using a dataset of 100 runs of each algorithm using the optimal
+parameters found in sections \ref{sec:ga_tuning} and \ref{sec:nn_tuning}.
+
+Statistics of the results of this performance test are shown in table
+\ref{tab:comparison_tab}.
 
 \begin{table}[h!]
   \centering
@@ -193,10 +232,6 @@ TODO
   \caption{Comparison of algorithm performance (100 executions)}
   \label{tab:comparison_avg}
 \end{table}
-
-TODO
-
-\section{Conclusion}
 
 TODO
 
