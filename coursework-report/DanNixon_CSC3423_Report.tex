@@ -3,7 +3,7 @@
 % Set for specific document
 \def\DOCTITLE{CSC3423 Biocomputing Coursework Report}
 \def\DOCAUTHOR{Dan Nixon (120263697)}
-\def\DOCDATE{05/11/2015}
+\def\DOCDATE{\today}
 
 % Set document attributes
 \title{\DOCTITLE}
@@ -57,8 +57,6 @@
 \section{Genetic Algorithm}
 \label{sec:ga}
 
-TODO
-
 \subsection{Implementation}
 \label{sec:ga_implementation}
 
@@ -106,46 +104,88 @@ provided framework is shown in figure \ref{fig:ga_uml}.
 \end{figure}
 
 The final implementation uses a selection algorithm that selects the top
-candidates based on their fitness value, 
+candidates based on their fitness value, this selection algorithm operates by
+selecting the best $n$ candidates from the current population to go forth to the
+population of the next iteration where $n$ is given by:
+
+\[
+  n = s * p;
+\]
+
+where $s$ is the population size and $p$ is an attribute of the system.
+
+The crossover algorithm used is the default provided by the JGAP
+\texttt{DefaultConfiguration}. This algorithm selects two candidates for
+crossover, selects a gene at random and swaps that gene and all genes after
+between the two candidates.
+
+This crossover operation is performed $1/c$ times where $c$ is the crossover
+rate, by default this is 0.35.
+
+The mutation algorithm used is the default provided by the JGAP
+\texttt{DefaultConfiguration}. This mutation algorithm mutates a given
+percentage of the candidates in the population, by default this mutation rate is
+a constant of $1/12$ of the population size.
+
+The actual mutation performed is simple an offset by a random value between the
+upper and lower bounds of the gene value.
 
 \subsection{Tuning}
 \label{sec:ga_tuning}
 
-TODO
+I selected three important parameters to be tuned in the genetic algorithm
+implementation; the population size, the target accuracy for each classifier
+(i.e. the accuracy required for the learning process to terminate) and the
+selection algorithm being used.
+
+Several parameters were kept constant for all tests, these parameters are:
+
+\begin{description}
+  \item[Maximim learning iterations (100)] \hfill \\
+    The maximum number of iterations to be executed in the learning process.
+  \item[Crossover operator] \hfill \\
+    The crossover algorithm as described in section \ref{sec:ga_implementation}.
+  \item[Mutation operator] \hfill \\
+    The mutation algorithm as described in section \ref{sec:ga_implementation}.
+\end{description}
+
+The values used in the tests and the results are given in table
+\ref{tab:ga_tuning}. In each test 10 runs of the algorithm were performed and
+the values recorded are the results that show the best time and accuracy.
 
 \begin{table}[h!]
   \centering
   \begin{tabular}{@{}lllllll@{}}
     \toprule
-    Population Size & Learn Rate & Selector       & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
+    Population Size & Target Accuracy & Selector       & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
     \midrule
-    100             & 0.9        & Best (0.9)     & 95.26         & 4.74       & 0                 & 23.96    \\
-    100             & 0.95       & Best (0.9)     & 97.37         & 2.63       & 0                 & 33.622   \\
-    100             & 0.99       & Best (0.9)     & 95.79         & 4.21       & 0                 & 46.085   \\
-    20              & 0.9        & Best (0.9)     & 94.21         & 5.79       & 0                 & 14.269   \\
-    20              & 0.95       & Best (0.9)     & 94.74         & 5.26       & 0                 & 19.23    \\
-    20              & 0.99       & Best (0.9)     & 95.79         & 4.21       & 0                 & 23.143   \\
-    200             & 0.9        & Best (0.9)     & 95.26         & 4.21       & 0.53              & 56.417   \\
-    200             & 0.95       & Best (0.9)     & 94.21         & 5.79       & 0                 & 60.465   \\
-    200             & 0.99       & Best (0.9)     & 94.74         & 5.26       & 0                 & 73.05    \\
-    100             & 0.9        & Tournament (2) & 95.79         & 4.21       & 0                 & 53.039   \\
-    100             & 0.95       & Tournament (2) & 95.79         & 4.21       & 0                 & 67.503   \\
-    100             & 0.99       & Tournament (2) & 96.84         & 3.16       & 0                 & 93.144   \\
-    20              & 0.9        & Tournament (2) & 94.21         & 5.26       & 0.53              & 35.135   \\
-    20              & 0.95       & Tournament (2) & 96.32         & 3.68       & 0                 & 50.156   \\
-    20              & 0.99       & Tournament (2) & 91.58         & 8.42       & 0                 & 32.734   \\
-    200             & 0.9        & Tournament (2) & 94.74         & 5.26       & 0                 & 77.3     \\
-    200             & 0.95       & Tournament (2) & 96.32         & 3.68       & 0                 & 83.885   \\
-    200             & 0.99       & Tournament (2) & 95.79         & 4.21       & 0                 & 100.731  \\
-    100             & 0.9        & Tournament (5) & 95.26         & 4.74       & 0                 & 66.057   \\
-    100             & 0.95       & Tournament (5) & 96.32         & 3.68       & 0                 & 82.002   \\
-    100             & 0.99       & Tournament (5) & 95.79         & 3.68       & 0.53              & 106.346  \\
-    20              & 0.9        & Tournament (5) & 93.16         & 6.84       & 0                 & 37.7     \\
-    20              & 0.95       & Tournament (5) & 94.21         & 5.79       & 0                 & 49.235   \\
-    20              & 0.99       & Tournament (5) & 89.47         & 10.53      & 0                 & 41.093   \\
-    200             & 0.9        & Tournament (5) & 95.79         & 4.21       & 0                 & 138.576  \\
-    200             & 0.95       & Tournament (5) & 94.21         & 5.79       & 0                 & 103.349  \\
-    200             & 0.99       & Tournament (5) & 95.79         & 4.21       & 0                 & 129.103  \\
+    100             & 0.9             & Best (0.9)     & 95.26         & 4.74       & 0                 & 23.96    \\
+    100             & 0.95            & Best (0.9)     & 97.37         & 2.63       & 0                 & 33.622   \\
+    100             & 0.99            & Best (0.9)     & 95.79         & 4.21       & 0                 & 46.085   \\
+    20              & 0.9             & Best (0.9)     & 94.21         & 5.79       & 0                 & 14.269   \\
+    20              & 0.95            & Best (0.9)     & 94.74         & 5.26       & 0                 & 19.23    \\
+    20              & 0.99            & Best (0.9)     & 95.79         & 4.21       & 0                 & 23.143   \\
+    200             & 0.9             & Best (0.9)     & 95.26         & 4.21       & 0.53              & 56.417   \\
+    200             & 0.95            & Best (0.9)     & 94.21         & 5.79       & 0                 & 60.465   \\
+    200             & 0.99            & Best (0.9)     & 94.74         & 5.26       & 0                 & 73.05    \\
+    100             & 0.9             & Tournament (2) & 95.79         & 4.21       & 0                 & 53.039   \\
+    100             & 0.95            & Tournament (2) & 95.79         & 4.21       & 0                 & 67.503   \\
+    100             & 0.99            & Tournament (2) & 96.84         & 3.16       & 0                 & 93.144   \\
+    20              & 0.9             & Tournament (2) & 94.21         & 5.26       & 0.53              & 35.135   \\
+    20              & 0.95            & Tournament (2) & 96.32         & 3.68       & 0                 & 50.156   \\
+    20              & 0.99            & Tournament (2) & 91.58         & 8.42       & 0                 & 32.734   \\
+    200             & 0.9             & Tournament (2) & 94.74         & 5.26       & 0                 & 77.3     \\
+    200             & 0.95            & Tournament (2) & 96.32         & 3.68       & 0                 & 83.885   \\
+    200             & 0.99            & Tournament (2) & 95.79         & 4.21       & 0                 & 100.731  \\
+    100             & 0.9             & Tournament (5) & 95.26         & 4.74       & 0                 & 66.057   \\
+    100             & 0.95            & Tournament (5) & 96.32         & 3.68       & 0                 & 82.002   \\
+    100             & 0.99            & Tournament (5) & 95.79         & 3.68       & 0.53              & 106.346  \\
+    20              & 0.9             & Tournament (5) & 93.16         & 6.84       & 0                 & 37.7     \\
+    20              & 0.95            & Tournament (5) & 94.21         & 5.79       & 0                 & 49.235   \\
+    20              & 0.99            & Tournament (5) & 89.47         & 10.53      & 0                 & 41.093   \\
+    200             & 0.9             & Tournament (5) & 95.79         & 4.21       & 0                 & 138.576  \\
+    200             & 0.95            & Tournament (5) & 94.21         & 5.79       & 0                 & 103.349  \\
+    200             & 0.99            & Tournament (5) & 95.79         & 4.21       & 0                 & 129.103  \\
     \bottomrule
   \end{tabular}
   \caption{Genetic algorithm tuning}
@@ -156,8 +196,6 @@ TODO
 
 \section{Neural Network}
 \label{sec:nn}
-
-TODO
 
 \subsection{Implementation}
 \label{sec:nn_implementation}
@@ -217,7 +255,7 @@ Statistics of the results of this performance test are shown in table
   \centering
   \begin{tabular}{@{}lll@{}}
     \toprule
-    Matric                        & Genetic Algorithm & Neural Network \\
+    Metric                        & Genetic Algorithm & Neural Network \\
     \midrule
     Execution Time (s, avg.)      & 37.252            & 5.086          \\
     Execution Time (s, std. dev.) & 5.122             & 1.695          \\
@@ -235,7 +273,7 @@ Statistics of the results of this performance test are shown in table
 
 TODO
 
-% \begin{thebibliography}{9}
-% \end{thebibliography}
+\begin{thebibliography}{9}
+\end{thebibliography}
 
 \end{document}
