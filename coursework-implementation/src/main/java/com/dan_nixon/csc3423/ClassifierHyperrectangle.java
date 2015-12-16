@@ -16,6 +16,7 @@ import org.jgap.impl.CompositeGene;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 import org.jgap.impl.IntegerGene;
+import org.jgap.impl.TournamentSelector;
 
 /**
  * Classifier using a genetic algorithm and hyperrectangle knowledge
@@ -130,6 +131,7 @@ public class ClassifierHyperrectangle extends Classifier
     DefaultConfiguration.reset();
     Configuration conf = new DefaultConfiguration();
     conf.setPopulationSize(POPULATION_SIZE);
+    conf.setNaturalSelector(new TournamentSelector(conf, 5, 1.0));
 
     // Setup fitness function
     FitnessFunction fit = new HyperrectangleClassificationFitnessFunction(trainingSet);

@@ -20,7 +20,7 @@ enum ClassifierType
 
 public class Control {
   // README: Set classifer type here
-  static final ClassifierType CLASSIFIER_TYPE = ClassifierType.CLASSIFIER_NEURALNET;
+  static final ClassifierType CLASSIFIER_TYPE = ClassifierType.CLASSIFIER_GAHYPERRECTANGLE;
   // README: Set to enable/disable visualisations
   static final boolean VISUALISE = false;
 
@@ -44,7 +44,7 @@ public class Control {
     ClassifierAggregated solution = new ClassifierAggregated();
     int countIterations=0;
     System.out.println();
-    
+
     // Create the hyperrectangle visualisation if it is needed
     if (CLASSIFIER_TYPE == ClassifierType.CLASSIFIER_GAHYPERRECTANGLE && VISUALISE)
       m_hyperrectFrame = new HyperrectangleFrame(trainingSet);
@@ -53,7 +53,7 @@ public class Control {
     while(trainingSet.numInstances()>0) {
       // Calling a (nature-inspired) optimisation method to generate one classifiers
       Classifier subSolution = generateSubsolution(trainingSet);
-      
+
       // Printing the stats on training data of that classifier
       System.out.print("Classifier of iteration "+countIterations+". ");
       subSolution.computeStats(trainingSet);
@@ -110,9 +110,9 @@ public class Control {
           return null;
         }
     }
-    
+
     return null;
   }
-  
+
   public static HyperrectangleFrame m_hyperrectFrame;
 }
