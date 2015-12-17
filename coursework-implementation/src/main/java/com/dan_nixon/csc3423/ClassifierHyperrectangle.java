@@ -159,7 +159,9 @@ public class ClassifierHyperrectangle extends Classifier
       if (bestFitness > TARGET_LEARN_ACCURACY)
         break;
     }
+    ms_totalIterations += i;
     System.out.println("GA learning exited after " + i + " iterations");
+    System.out.println("(total iterations so far: " + ms_totalIterations + ")");
 
     // Record best
     updateFromChromosome(bestSolution);
@@ -274,6 +276,18 @@ public class ClassifierHyperrectangle extends Classifier
     return sb.toString();
   }
 
+  /**
+   * Gets the number of ierations performed over all executions of the
+   * classifier.
+   *
+   * @return Total iterations
+   */
+  public static int getTotalIterations()
+  {
+    return ms_totalIterations;
+  }
+
   private int m_classValue;
   private double[][] m_dimensions;
+  private static int ms_totalIterations;
 }
