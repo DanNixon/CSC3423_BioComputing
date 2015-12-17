@@ -11,14 +11,14 @@ import org.jgap.IChromosome;
  * Defines fitness as number of correctly classified instances over total number
  * of classified instances (unclassified instances are not counted).
  */
-public class HyperrectangleClassificationFitnessFunction extends FitnessFunction
+public class HyperrectFitnessFunction extends FitnessFunction
 {
   /**
    * Create new fitness function with given training set for evaluation.
    *
    * @param trainingSet Evaluation training set
    */
-  public HyperrectangleClassificationFitnessFunction(InstanceSet trainingSet)
+  public HyperrectFitnessFunction(InstanceSet trainingSet)
   {
     m_trainingSet = trainingSet;
   }

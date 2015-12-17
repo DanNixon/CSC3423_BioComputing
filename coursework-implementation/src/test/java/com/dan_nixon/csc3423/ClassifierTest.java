@@ -151,7 +151,7 @@ public class ClassifierTest
   @Test
   public void test_InstanceToRow()
   {
-    DataSetRow row = ClassifierNN.InstanceToRow(m_testInstances.getInstance(0));
+    DataSetRow row = ClassifierNN.instanceToRow(m_testInstances.getInstance(0));
     assertEquals(0.6, row.getInput()[0], TH);
     assertEquals(1.1, row.getInput()[1], TH);
     assertEquals(1.0, row.getDesiredOutput()[0], TH);

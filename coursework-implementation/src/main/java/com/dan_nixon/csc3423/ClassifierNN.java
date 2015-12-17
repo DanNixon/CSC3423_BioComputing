@@ -11,6 +11,7 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.comp.neuron.BiasNeuron;
+import org.neuroph.nnet.learning.BackPropagation;
 import org.neuroph.util.TransferFunctionType;
 
 /**
@@ -25,7 +26,7 @@ public class ClassifierNN extends Classifier
    * @param inst Instance to convert
    * @return DataSetRow
    */
-  public static DataSetRow InstanceToRow(Instance inst)
+  public static DataSetRow instanceToRow(Instance inst)
   {
     int dimensions = Attributes.getNumAttributes();
 
@@ -53,7 +54,7 @@ public class ClassifierNN extends Classifier
 
     DataSet nnTrainingSet = new DataSet(dimensions, 1);
     for (Instance i : trainingSet.getInstances())
-      nnTrainingSet.addRow(InstanceToRow(i));
+      nnTrainingSet.addRow(instanceToRow(i));
 
     m_mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH,
                                               dimensions, 10, 10, 1);
@@ -68,12 +69,16 @@ public class ClassifierNN extends Classifier
     m_mlPerceptron.getLearningRule().setMaxIterations(10000);
 
     m_mlPerceptron.learn(nnTrainingSet);
+
+    BackPropagation bp = (BackPropagation) m_mlPerceptron.getLearningRule();
+    int iters = bp.getCurrentIteration();
+    System.out.println("NN learning complete after " + iters + " iterations");
   }
 
   @Override
   public int classifyInstance(Instance i)
   {
-    m_mlPerceptron.setInput(InstanceToRow(i).getInput());
+    m_mlPerceptron.setInput(instanceToRow(i).getInput());
     m_mlPerceptron.calculate();
     int classification = (int) (m_mlPerceptron.getOutput()[0] + 0.5);
     return classification;
@@ -84,7 +89,7 @@ public class ClassifierNN extends Classifier
   {
     System.out.println(this);
   }
-  
+
   /**
    * Outputs network topology as string.
    * Note that only the topology is output, also outputting the weights would
@@ -95,16 +100,16 @@ public class ClassifierNN extends Classifier
   public String toString()
   {
     StringBuilder sb = new StringBuilder();
-    
+
     sb.append("NeuralNetwork[");
     for (int i = 0; i < m_mlPerceptron.getLayersCount(); i++)
     {
       if (i > 0)
         sb.append(",");
-      
+
       Layer l = m_mlPerceptron.getLayerAt(i);
       sb.append(l.getNeuronsCount());
-      
+
       int numBias = 0;
       for (Neuron n : l.getNeurons())
       {

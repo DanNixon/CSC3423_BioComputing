@@ -132,7 +132,7 @@ public class ClassifierHyperrectangle extends Classifier
     conf.setPopulationSize(POPULATION_SIZE);
 
     // Setup fitness function
-    FitnessFunction fit = new HyperrectangleClassificationFitnessFunction(trainingSet);
+    FitnessFunction fit = new HyperrectFitnessFunction(trainingSet);
     conf.setFitnessFunction(fit);
 
     // Determine the bounds of the training set per axis and add a little
@@ -148,8 +148,9 @@ public class ClassifierHyperrectangle extends Classifier
     Genotype population = Genotype.randomInitialGenotype(conf);
 
     // Evolve
+    int i = 0;
     IChromosome bestSolution = null;
-    for (int i = 0; i < MAX_ITERATIONS; i++)
+    for (i = 1; i < MAX_ITERATIONS + 1; i++)
     {
       population.evolve();
       bestSolution = population.getFittestChromosome();
@@ -158,6 +159,7 @@ public class ClassifierHyperrectangle extends Classifier
       if (bestFitness > TARGET_LEARN_ACCURACY)
         break;
     }
+    System.out.println("GA learning exited after " + i + " iterations");
 
     // Record best
     updateFromChromosome(bestSolution);
