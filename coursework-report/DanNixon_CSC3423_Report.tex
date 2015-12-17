@@ -155,6 +155,16 @@ is a constant of $1/12$ of the population size.
 The actual mutation performed is simple an offset by a random value between the
 upper and lower bounds of the gene value.
 
+When the best chromosome for a classifier is found it is converted to
+coordinates for the hyperrectangle and a classification value by the
+\texttt{updateFromChromosome()} function.
+
+Classification in the \texttt{classifyInstance()} function is performed by
+checking if the coordinates of the \texttt{Instance} being classified falls
+within the bounds of the hyperrectangle, if so the instance is classified based
+on the classification value given to this classifier during the learning phase,
+otherwise the instance is unclassified.
+
 \subsection{Tuning}
 \label{sec:ga_tuning}
 
@@ -242,7 +252,17 @@ TODO: reason for selection
 \subsection{Implementation}
 \label{sec:nn_implementation}
 
-The
+The neural network was implemented using the Neuroph \cite{neuroph} Java
+library, the code structure of the implementation is shown in figure
+\ref{fig:nn_uml}.
+
+The implementation uses the \texttt{MultiLayerPerceptron} class from Neuroph
+which implements a standard multi layer perceptron network in which all neurons
+in a given layer connect to all nodes in their neighbouring layers and the
+network is strictly feed forward.
+
+The network is trained using back propagation which is the default learning
+algorithm for this network type within Neuroph.
 
 \begin{figure}[h!]
   \centering
@@ -251,7 +271,18 @@ The
   \label{fig:nn_uml}
 \end{figure}
 
-TODO
+The \texttt{NNLearnListener} class is used for progress reporting during the
+learning process and also updates the network visualisation if it is enabled.
+The progress reporting outputs the iteration number and classification error on
+the training data for each iteration.
+
+The \texttt{NeuralNetworkFrame} class is used to provide a visualisation of the
+neural network during the learning process, this plots the network as a graph
+where the colour of the connecting arc is determined by the weight associated
+with it in the network.
+
+The neurons are colour coded; green are the input layer, blue are inner layers
+and red is the output layer. Bias neurons are a hollow circle.
 
 \begin{figure}[h!]
   \centering
@@ -259,6 +290,17 @@ TODO
   \caption{Neural network visualisation}
   \label{fig:nn_vis}
 \end{figure}
+
+Classification in the \texttt{classifyInstance()} function is performed by
+simply setting the input layer of the trained network based on the attributes of
+the instance being classified and obtaining the output value. Due to the
+functional form of a neural network all instances will always be classified.
+
+In order to convert between the \texttt{Instance} data type in the provided
+framework and a suitable data type for Neuroph there is a utility function,
+\texttt{instanceToRow()}, which converts and \texttt{Instance} to a
+\texttt{DataSetRow} which when part of a \texttt{DataSet} can be used to train
+the network.
 
 \subsection{Tuning}
 \label{sec:nn_tuning}
@@ -298,7 +340,9 @@ performed using a dataset of 100 runs of each algorithm using the optimal
 parameters found in sections \ref{sec:ga_tuning} and \ref{sec:nn_tuning}.
 
 Statistics of the results of this performance test are shown in table
-\ref{tab:comparison_avg}.
+\ref{tab:comparison_avg}, in the case of iteration count for the genetic
+algorithm the total number of iterations over all classifiers is given with the
+number of classifiers shown in brackets.
 
 \begin{table}[h!]
   \centering
@@ -314,8 +358,8 @@ Statistics of the results of this performance test are shown in table
     Accuracy (\%, std. dev.)      & 1.12              & 0.96           \\
     Accuracy (\%, min.)           & 94.74             & 95.26          \\
     Accuracy (\%, max.)           & 97.89             & 98.42          \\
-    Num. Iterations (avg.)        &                   &                \\
-    Num. Iterations (std. dev.)   &                   &                \\
+    Num. Iterations (avg.)        & 2730 (170)        & 553            \\
+    Num. Iterations (std. dev.)   & 193 (13)          & 152            \\
     Num. Iterations (min.)        & 2389 (151)        & 300            \\
     Num. Iterations (max.)        & 2965 (163)        & 772            \\
     \bottomrule
