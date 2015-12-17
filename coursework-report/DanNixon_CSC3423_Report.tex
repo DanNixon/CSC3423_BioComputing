@@ -14,7 +14,11 @@
 \usepackage{scrextend}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[style=numeric-comp,natbib=true]{biblatex}
 \usepackage{booktabs}
+
+\addbibresource{DanNixon_CSC3423_Report.bib}
 
 % Handle graphics correctly
 \ifx\pdftexversion\undefined
@@ -82,7 +86,7 @@ values for each dimension and then sets the limits of the relevant
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.4\textwidth]{out/alg1_kr.eps}
+  \includegraphics[width=0.4\textwidth]{out/ga_kr.eps}
   \caption{3D hyperrectangle classifier}
   \label{fig:ga_kr}
 \end{figure}
@@ -98,7 +102,7 @@ provided framework is shown in figure \ref{fig:ga_uml}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{out/alg1_uml.1}
+  \includegraphics[width=0.9\textwidth]{out/ga_uml.1}
   \caption{Genetic algorithm implementation UML diagram}
   \label{fig:ga_uml}
 \end{figure}
@@ -157,35 +161,35 @@ the values recorded are the results that show the best time and accuracy.
   \centering
   \begin{tabular}{@{}lllllll@{}}
     \toprule
-    Population Size & Target Accuracy & Selector       & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
+    Population Size & Target (\%) & Selector       & Accuracy (\%) & Error (\%) & Unclassified (\%) & Time (s) \\
     \midrule
-    100             & 0.9             & Best (0.9)     & 95.26         & 4.74       & 0                 & 23.96    \\
-    100             & 0.95            & Best (0.9)     & 97.37         & 2.63       & 0                 & 33.622   \\
-    100             & 0.99            & Best (0.9)     & 95.79         & 4.21       & 0                 & 46.085   \\
-    20              & 0.9             & Best (0.9)     & 94.21         & 5.79       & 0                 & 14.269   \\
-    20              & 0.95            & Best (0.9)     & 94.74         & 5.26       & 0                 & 19.23    \\
-    20              & 0.99            & Best (0.9)     & 95.79         & 4.21       & 0                 & 23.143   \\
-    200             & 0.9             & Best (0.9)     & 95.26         & 4.21       & 0.53              & 56.417   \\
-    200             & 0.95            & Best (0.9)     & 94.21         & 5.79       & 0                 & 60.465   \\
-    200             & 0.99            & Best (0.9)     & 94.74         & 5.26       & 0                 & 73.05    \\
-    100             & 0.9             & Tournament (2) & 95.79         & 4.21       & 0                 & 53.039   \\
-    100             & 0.95            & Tournament (2) & 95.79         & 4.21       & 0                 & 67.503   \\
-    100             & 0.99            & Tournament (2) & 96.84         & 3.16       & 0                 & 93.144   \\
-    20              & 0.9             & Tournament (2) & 94.21         & 5.26       & 0.53              & 35.135   \\
-    20              & 0.95            & Tournament (2) & 96.32         & 3.68       & 0                 & 50.156   \\
-    20              & 0.99            & Tournament (2) & 91.58         & 8.42       & 0                 & 32.734   \\
-    200             & 0.9             & Tournament (2) & 94.74         & 5.26       & 0                 & 77.3     \\
-    200             & 0.95            & Tournament (2) & 96.32         & 3.68       & 0                 & 83.885   \\
-    200             & 0.99            & Tournament (2) & 95.79         & 4.21       & 0                 & 100.731  \\
-    100             & 0.9             & Tournament (5) & 95.26         & 4.74       & 0                 & 66.057   \\
-    100             & 0.95            & Tournament (5) & 96.32         & 3.68       & 0                 & 82.002   \\
-    100             & 0.99            & Tournament (5) & 95.79         & 3.68       & 0.53              & 106.346  \\
-    20              & 0.9             & Tournament (5) & 93.16         & 6.84       & 0                 & 37.7     \\
-    20              & 0.95            & Tournament (5) & 94.21         & 5.79       & 0                 & 49.235   \\
-    20              & 0.99            & Tournament (5) & 89.47         & 10.53      & 0                 & 41.093   \\
-    200             & 0.9             & Tournament (5) & 95.79         & 4.21       & 0                 & 138.576  \\
-    200             & 0.95            & Tournament (5) & 94.21         & 5.79       & 0                 & 103.349  \\
-    200             & 0.99            & Tournament (5) & 95.79         & 4.21       & 0                 & 129.103  \\
+    100             & 0.9         & Best (0.9)     & 95.26         & 4.74       & 0                 & 23.96    \\
+    100             & 0.95        & Best (0.9)     & 97.37         & 2.63       & 0                 & 33.622   \\
+    100             & 0.99        & Best (0.9)     & 95.79         & 4.21       & 0                 & 46.085   \\
+    20              & 0.9         & Best (0.9)     & 94.21         & 5.79       & 0                 & 14.269   \\
+    20              & 0.95        & Best (0.9)     & 94.74         & 5.26       & 0                 & 19.23    \\
+    20              & 0.99        & Best (0.9)     & 95.79         & 4.21       & 0                 & 23.143   \\
+    200             & 0.9         & Best (0.9)     & 95.26         & 4.21       & 0.53              & 56.417   \\
+    200             & 0.95        & Best (0.9)     & 94.21         & 5.79       & 0                 & 60.465   \\
+    200             & 0.99        & Best (0.9)     & 94.74         & 5.26       & 0                 & 73.05    \\
+    100             & 0.9         & Tournament (2) & 95.79         & 4.21       & 0                 & 53.039   \\
+    100             & 0.95        & Tournament (2) & 95.79         & 4.21       & 0                 & 67.503   \\
+    100             & 0.99        & Tournament (2) & 96.84         & 3.16       & 0                 & 93.144   \\
+    20              & 0.9         & Tournament (2) & 94.21         & 5.26       & 0.53              & 35.135   \\
+    20              & 0.95        & Tournament (2) & 96.32         & 3.68       & 0                 & 50.156   \\
+    20              & 0.99        & Tournament (2) & 91.58         & 8.42       & 0                 & 32.734   \\
+    200             & 0.9         & Tournament (2) & 94.74         & 5.26       & 0                 & 77.3     \\
+    200             & 0.95        & Tournament (2) & 96.32         & 3.68       & 0                 & 83.885   \\
+    200             & 0.99        & Tournament (2) & 95.79         & 4.21       & 0                 & 100.731  \\
+    100             & 0.9         & Tournament (5) & 95.26         & 4.74       & 0                 & 66.057   \\
+    100             & 0.95        & Tournament (5) & 96.32         & 3.68       & 0                 & 82.002   \\
+    100             & 0.99        & Tournament (5) & 95.79         & 3.68       & 0.53              & 106.346  \\
+    20              & 0.9         & Tournament (5) & 93.16         & 6.84       & 0                 & 37.7     \\
+    20              & 0.95        & Tournament (5) & 94.21         & 5.79       & 0                 & 49.235   \\
+    20              & 0.99        & Tournament (5) & 89.47         & 10.53      & 0                 & 41.093   \\
+    200             & 0.9         & Tournament (5) & 95.79         & 4.21       & 0                 & 138.576  \\
+    200             & 0.95        & Tournament (5) & 94.21         & 5.79       & 0                 & 103.349  \\
+    200             & 0.99        & Tournament (5) & 95.79         & 4.21       & 0                 & 129.103  \\
     \bottomrule
   \end{tabular}
   \caption{Genetic algorithm tuning}
@@ -204,7 +208,7 @@ TODO
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.4\textwidth]{out/alg2_uml.1}
+  \includegraphics[width=0.9\textwidth]{out/nn_uml.1}
   \caption{Neural network implementation UML diagram}
   \label{fig:nn_uml}
 \end{figure}
@@ -249,7 +253,7 @@ performed using a dataset of 100 runs of each algorithm using the optimal
 parameters found in sections \ref{sec:ga_tuning} and \ref{sec:nn_tuning}.
 
 Statistics of the results of this performance test are shown in table
-\ref{tab:comparison_tab}.
+\ref{tab:comparison_avg}.
 
 \begin{table}[h!]
   \centering
@@ -273,7 +277,6 @@ Statistics of the results of this performance test are shown in table
 
 TODO
 
-\begin{thebibliography}{9}
-\end{thebibliography}
+\printbibliography
 
 \end{document}
