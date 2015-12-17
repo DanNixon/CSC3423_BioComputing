@@ -61,6 +61,13 @@
 \section{Genetic Algorithm}
 \label{sec:ga}
 
+A genetic algorithm is a very simple nature inspired algorithm that can be
+applied to a wide range of problems providing that the fitness of a candidate
+solution can be evaluated.
+
+In the case of this classification problem the fitness function is simply the
+percentage of correctly classified points within the bounds of the classifier.
+
 \subsection{Implementation}
 \label{sec:ga_implementation}
 
@@ -107,10 +114,21 @@ provided framework is shown in figure \ref{fig:ga_uml}.
   \label{fig:ga_uml}
 \end{figure}
 
+The \texttt{HyperrectangleFrame} class is used to provide a visualisation of the
+progress of the algorithm, after the learning process completes the classifier
+is plotted over the training data as shown in figure \ref{fig:ga_vis}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.6\textwidth]{graphics/ga_vis.eps}
+  \caption{Genetic algorithm visualisation}
+  \label{fig:ga_vis}
+\end{figure}
+
 The final implementation uses a selection algorithm that selects the top
-candidates based on their fitness value, this selection algorithm operates by
-selecting the best $n$ candidates from the current population to go forth to the
-population of the next iteration where $n$ is given by:
+chromosomes based on their fitness value, this selection algorithm operates by
+selecting the best $n$ chromosomes from the current population to go forth to
+the population of the next iteration where $n$ is given by:
 
 \[
   n = s * p;
@@ -118,18 +136,21 @@ population of the next iteration where $n$ is given by:
 
 where $s$ is the population size and $p$ is an attribute of the system.
 
+This differs from the original proposal to use tournament selection for reasons
+described in section \ref{sec:ga_tuning}.
+
 The crossover algorithm used is the default provided by the JGAP
-\texttt{DefaultConfiguration}. This algorithm selects two candidates for
+\texttt{DefaultConfiguration}. This algorithm selects two chromosomes for
 crossover, selects a gene at random and swaps that gene and all genes after
-between the two candidates.
+between the two chromosomes.
 
 This crossover operation is performed $1/c$ times where $c$ is the crossover
 rate, by default this is 0.35.
 
 The mutation algorithm used is the default provided by the JGAP
 \texttt{DefaultConfiguration}. This mutation algorithm mutates a given
-percentage of the candidates in the population, by default this mutation rate is
-a constant of $1/12$ of the population size.
+percentage of the chromosomes in the population, by default this mutation rate
+is a constant of $1/12$ of the population size.
 
 The actual mutation performed is simple an offset by a random value between the
 upper and lower bounds of the gene value.
@@ -196,15 +217,32 @@ the values recorded are the results that show the best time and accuracy.
   \label{tab:ga_tuning}
 \end{table}
 
-TODO
+These results show that the most optimal solution in terms of classification
+accuracy was obtained using a population size of 100, a target classification
+accuracy of 95\% and the best chromosome selection algorithm.
+
+There is a notable speed increase with only a small reduction in classification
+accuracy when using a smaller population size, 20 in this case. However I chose
+to favour classification accuracy in the selection of parameters for the final
+implementation.
+
+It is clear to see that the use of the best chromosome selector gives a
+noticeable speed increase over tournament selection. This could be due to the
+increased favour of exploitation that the best chromosome selector provides by
+taking only the best chromosomes from the population as opposed to tournament
+selection where due to the fact that the choice of chromosomes that take part in
+one tournament is random, there is still a chance that a chromosome with poor
+fitness can be put forward to the next population.
 
 \section{Neural Network}
 \label{sec:nn}
 
+TODO: reason for selection
+
 \subsection{Implementation}
 \label{sec:nn_implementation}
 
-TODO
+The
 
 \begin{figure}[h!]
   \centering
@@ -214,6 +252,13 @@ TODO
 \end{figure}
 
 TODO
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{graphics/nn_vis.eps}
+  \caption{Neural network visualisation}
+  \label{fig:nn_vis}
+\end{figure}
 
 \subsection{Tuning}
 \label{sec:nn_tuning}
@@ -269,6 +314,10 @@ Statistics of the results of this performance test are shown in table
     Accuracy (\%, std. dev.)      & 1.12              & 0.96           \\
     Accuracy (\%, min.)           & 94.74             & 95.26          \\
     Accuracy (\%, max.)           & 97.89             & 98.42          \\
+    Num. Iterations (avg.)        &                   &                \\
+    Num. Iterations (std. dev.)   &                   &                \\
+    Num. Iterations (min.)        & 2389 (151)        & 300            \\
+    Num. Iterations (max.)        & 2965 (163)        & 772            \\
     \bottomrule
   \end{tabular}
   \caption{Comparison of algorithm performance (100 executions)}
