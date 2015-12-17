@@ -57,7 +57,7 @@ public class ClassifierNN extends Classifier
       nnTrainingSet.addRow(instanceToRow(i));
 
     m_mlPerceptron = new MultiLayerPerceptron(TransferFunctionType.TANH,
-                                              dimensions, 10, 10, 1);
+                                              dimensions, 20, 10, 1);
 
     NeuralNetworkFrame vis = null;
     if (visualise)
